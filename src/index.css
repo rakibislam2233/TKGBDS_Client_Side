@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,400;1,300&family=Bebas+Neue&family=Delicious+Handrawn&family=Dosis&family=Fjalla+One&family=Geologica&family=Hind+Siliguri:wght@400;500&family=Itim&family=Josefin+Sans&family=Nunito&family=Oswald&family=Poppins&family=Rancho&family=Righteous&family=Roboto&family=Roboto+Slab&family=Signika&family=Ubuntu&family=Yanone+Kaffeesatz&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body{
+    font-family: 'Signika', sans-serif;
+}
