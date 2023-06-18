@@ -9,7 +9,7 @@ const NavigationLink = () => {
               <NavLink>Home</NavLink>
             </li>
             <li>
-              <NavLink>Donate Blood</NavLink>
+              <NavLink>All Doner</NavLink>
             </li>
             <li>
               <NavLink>Donation Centers</NavLink>
