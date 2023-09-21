@@ -1,5 +1,5 @@
-const SliderComponent = ({ images }) => {
-  const title = ['The gift of blood is the gift of life.',`Donating blood is not just an act of kindness, it's an act of heroism.`,`Share life, give blood`,``]
+import Lottie from "lottie-react";
+const SliderComponent = ({ images,animation }) => {
   return (
     // this is slidercomponent
     <div
@@ -10,25 +10,28 @@ const SliderComponent = ({ images }) => {
         backgroundRepeat: "no-repeat",
         backgroundBlendMode: "multiply",
       }}
-      className={`bg-gray-900 bg-opacity-30 w-full h-screen cursor-pointer`}
+      className={`bg-gray-600 bg-opacity-50 w-full h-full md:h-screen cursor-pointer`}
     >
-      {/* <div
-        data-aos="fade-up"
-        data-aos-duration="3000"
-        className="w-full max-w-6xl mx-auto h-full flex justify-center items-center p-5"
-      >
-        <div className="space-y-4">
-          <h2 className="text-6xl tracking-wider font-bold text-white">
-            Learn <span className="text-amber-500"> The Music </span> <br />
-            From The Masters
+      <div className="w-full max-w-6xl mx-auto h-full grid grid-cols-1 md:grid-cols-2 gap-5 p-5">
+       <div className="flex justify-center items-center">
+       <div className="space-y-4 ">
+          <h3 className="text-xl -tracking-tight font-semibold text-center py-3 text-white">
+            ' Share the Gift of Life, Donate Blood. '
+          </h3>
+          <h2 className="text-6xl tracking-widest leading-tight font-bold text-white">
+            The gift of <span className="text-rose-700"> blood </span>
+            <br />
+            is the gift of life
           </h2>
-          <button
-            className="py-3 px-5   bg-rose-500 shadow-lg font-semibold  text-white"
-          >
-           Learn More
+          <button className="py-2 my-5 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white">
+            Donate Blood
           </button>
         </div>
-      </div> */}
+       </div>
+        <div className="flex justify-center items-center">
+          <Lottie className="h-72" animationData={animation} loop={true} />
+        </div>
+      </div>
     </div>
   );
 };

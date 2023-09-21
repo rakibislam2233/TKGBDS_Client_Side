@@ -1,19 +1,15 @@
-import React from 'react';
-
+import ReactPlayer from "react-player";
 const DonationBloodBenifits = () => {
-    return (
-        <div className='flex justify-between'>
-            <div className='w-full h-full bg-slate-700'>
-            <iframe  src="https://www.youtube.com/embed/VAJ2yI27XQE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-            <div>
-            <iframe className='w-full h-full'  src="https://www.youtube.com/embed/VAJ2yI27XQE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-            <div>
-            <iframe  src="https://www.youtube.com/embed/VAJ2yI27XQE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-        </div>
-    );
+  return (
+    <div className="w-full cursor-pointer py-8 flex justify-center p-5">
+     <ReactPlayer
+          width="70%"
+          height="70%"
+          controls
+          url="/src/assets/Banner/Donation.mp4"
+        />
+    </div>
+  );
 };
 
 export default DonationBloodBenifits;

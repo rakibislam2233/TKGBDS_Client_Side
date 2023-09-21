@@ -1,6 +1,13 @@
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import SliderComponent from "./SliderComponent/SliderComponent";
+import blood from "../../../../assets/Lottifiles/animation_lmt2e0ae.json";
+import blood2 from "../../../../assets/Lottifiles/animation_lmt2e8hg.json";
+import blood3 from "../../../../assets/Lottifiles/animation_lmt2hpql.json";
+import blood4 from "../../../../assets/Lottifiles/animation_lmt2i80u.json";
+import image1 from "../../../../assets/Banner/banner.jpeg";
+import image2 from "../../../../assets/Banner/banner2.jpg";
+import image3 from "../../../../assets/Banner/Banner3.jpg";
 // import { Helmet } from "react-helmet";
 const Banner = () => {
   const [sliderRef] = useKeenSlider(
@@ -38,16 +45,7 @@ const Banner = () => {
       },
     ]
   );
-  /**
 
-
- */
-  const images2 = "https://i.postimg.cc/WpqXbg53/banner1.jpg";
-  const images1 ="https://i.postimg.cc/d3MyHkPQ/2223-0194-low-stock-Twitter2.jpg";
-  const images3 = "https://i.postimg.cc/ZnNc7zW3/banner3.jpg";
-  const images4 = "https://i.postimg.cc/506pzC1s/banner4.jpg";
-  const images5 = "https://i.postimg.cc/9fWws5nT/Blood-Donation-1.jpg";
-  const images6 = "https://i.postimg.cc/fWXX3KmV/world-blood-donor-background-free-vector.jpg";
   return (
     <>
       <div className="w-full">
@@ -58,23 +56,28 @@ const Banner = () => {
         {/* banner section added */}
         <div ref={sliderRef} className="keen-slider">
           <div className="keen-slider__slide number-slide1">
-            <SliderComponent images={images1}></SliderComponent>
+            <SliderComponent
+              images={image1}
+              animation={blood}
+            ></SliderComponent>
           </div>
-          <div className="keen-slider__slide number-slide2">
-            <SliderComponent images={images2}></SliderComponent>
+          <div className="keen-slider__slide number-slide1">
+            <SliderComponent
+              images={image2}
+              animation={blood2}
+            ></SliderComponent>
           </div>
-          <div className="keen-slider__slide number-slide3">
-            <SliderComponent images={images3}></SliderComponent>
+          <div className="keen-slider__slide number-slide1">
+            <SliderComponent
+              images={image1}
+              animation={blood3}
+            ></SliderComponent>
           </div>
-          <div className="keen-slider__slide number-slide4">
-            <SliderComponent images={images4}></SliderComponent>
-          </div>
-
-          <div className="keen-slider__slide number-slide5">
-            <SliderComponent images={images5}></SliderComponent>
-          </div>
-          <div className="keen-slider__slide number-slide5">
-            <SliderComponent images={images6}></SliderComponent>
+          <div className="keen-slider__slide number-slide1">
+            <SliderComponent
+              images={image3}
+              animation={blood4}
+            ></SliderComponent>
           </div>
         </div>
         {/* banner section end */}

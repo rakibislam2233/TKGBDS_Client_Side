@@ -1,15 +1,16 @@
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
 import { useContext, useState } from "react";
 import { ImSpinner9 } from "react-icons/im";
-import { Toaster, toast } from "react-hot-toast";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
+const signupImage = "/src/assets/SignUp/signup.webp";
 const Login = () => {
   const [hide, setHide] = useState(false);
-    const { login,googleLogin,loading } = useContext(UserContext);
+  const [btnLoading,setbtnLoading] = useState(false);
+  const { login, googleLogin, loading } = useContext(UserContext);
   const location = useLocation();
   const naviget = useNavigate();
   const from = location?.state?.from.pathname || "/";
@@ -20,24 +21,20 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
+    setbtnLoading(true)
     const { email, password } = data;
     login(email, password)
       .then((result) => {
         const user = result.user;
-        user;
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Login Successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        setbtnLoading(false)
         reset();
         naviget(from, { replace: true });
       })
       .catch((err) => {
-        err.message;
-        toast.error(err.message);
+        setbtnLoading(false)
+        toast.error(err.message,{
+          position:'top-right'
+        });
       });
   };
   // const LoginWithGoogle = () => {
@@ -79,10 +76,19 @@ const Login = () => {
   // };
   return (
     <>
-      <div className="flex justify-center items-center my-5 p-5">
+      <div
+        style={{
+          backgroundImage: `url(${signupImage})`,
+          backgroundPosition: "top center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundBlendMode: "multiply",
+        }}
+        className="w-full h-screen flex justify-center items-center text-gray-700 p-5"
+      >
         <div className="w-full max-w-[500px] p-6 rounded-2xl sm:p-10 bg-gray-100 text-gray-900">
           <h2 className="text-2xl font-bold text-center py-2">
-            Login To TKGBDS
+            TKGBDS এ লগইন করুন
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <div className="space-y-4">
@@ -115,9 +121,8 @@ const Login = () => {
                   className="absolute top-10 right-3 cursor-pointer text-gray-500"
                 >
                   {hide ? (
-                      <AiFillEye></AiFillEye>
+                    <AiFillEye></AiFillEye>
                   ) : (
-                  
                     <AiFillEyeInvisible></AiFillEyeInvisible>
                   )}
                 </div>
@@ -129,24 +134,30 @@ const Login = () => {
               </div>
             </div>
             <div className="flex justify-between py-2">
-             <div className="flex items-center gap-2">
-             <input type="checkbox" name="" id="" />
-              <label htmlFor="email" className="">
-                Remember me
-              </label>
-             </div>
-             <div>
-                <button className="text-blue-600 hover:underline">Forgot password?</button>
-             </div>
+              <div className="flex items-center gap-2">
+                <input type="checkbox" name="" id="" />
+                <label htmlFor="email" className="">
+                  Remember me
+                </label>
+              </div>
+              <div>
+                <button className="text-blue-600 hover:underline">
+                  Forgot password?
+                </button>
+              </div>
             </div>
             <div className="py-3">
               <button
                 type="submit"
-                className="bg-rose-500 w-full  py-3 text-white"
+                className="w-full py-2  px-10 cursor-pointer bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white"
               >
-                {
-                  loading ? <div className="flex justify-center"><ImSpinner9 className="w-8 h-8 animate-spin"></ImSpinner9></div> : 'Login'
-                }
+                {btnLoading ? (
+                  <div className="flex justify-center">
+                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>
+                  </div>
+                ) : (
+                  "Login"
+                )}
               </button>
             </div>
           </form>
@@ -163,19 +174,18 @@ const Login = () => {
 
             <p>Continue with Google</p>
           </div> */}
-          <p className="px-6 text-sm text-center text-gray-400">
-            {`Don't have an account?`}
-            <Link
-              to="/signup"
+          <h3 className="px-6  text-center  text-gray-400">
+            {`Don't have an account?`}  <Link
+              to="/userType"
               className="hover:underline hover:text-rose-500 text-gray-600"
             >
               SignUp
             </Link>
             .
-          </p>
+          </h3>
         </div>
+      <Toaster/>
       </div>
-      <Toaster></Toaster>
     </>
   );
 };

@@ -1,58 +1,59 @@
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { BiArrowFromLeft } from "react-icons/bi";
-import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
-const MenuDropdown = () => {
-    const [open,setOpen] = useState(false)
-    const {user,logOut} = useContext(UserContext)
+import { Link, useNavigate } from "react-router-dom";
+const MenuDropdown = ({ user, logOut }) => {
+  const naviget = useNavigate()
   return (
-    <>
-      <div className={`flex gap-3 items-center ${user && 'hidden'}`}>
-        <Link to='/signup'>
-          <button className="py-2 px-5 font-semibold text-white bg-rose-500">
-            Register
-          </button>
-        </Link>
-        <Link to='/login'>
-          <button className="py-2 px-5 font-semibold text-white bg-rose-500">
-            Login
-          </button>
-        </Link>
-      </div>
-    {
-        user &&   <div className="relative">
-        <div onClick={()=>setOpen(!open)} className="">
-          {
-            user?.displayName?  <img
-            className="w-12 h-12 rounded-full cursor-pointer"
-            src={user?.photoURL}
-            alt=""
-          /> :  <img
-            className="w-10 h-10 rounded-full cursor-pointer"
-            src="https://i.postimg.cc/fRx8FkZb/user-profile-icon-free-vector-fotor-2023061719853.png"
-            alt=""
-          />
-          }
-       
+    <div className="hidden md:block">
+      {user ? (
+        <div className="flex-none">
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-16 rounded-full">
+                <img src={user?.photoURL} />
+              </div>
+            </label>
+            <ul
+                  tabIndex={0}
+                  className="mt-3 space-y-3 ml-3 border  py-5 shadow menu menu-sm dropdown-content z-30 bg-slate-50 rounded-box w-52 p-3"
+                >
+                  <label tabIndex={0} className="avatar ">
+                    <div className="w-16 mx-auto rounded-full">
+                      <img className="" src={user?.photoURL} />
+                    </div>
+                  </label>
+                  <h2 className="text-center font-semibold text-gray-700">
+                    {user?.displayName}
+                  </h2>
+                  <Link>
+                    <button className="w-full py-2  px-10 cursor-pointer bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white">
+                      View Profile
+                    </button>
+                  </Link>
+                  <Link>
+                    <button
+                      onClick={() => [logOut(),naviget('/login')]}
+                      className="w-full bg-gray-700 rounded-full  text-white p-2"
+                    >
+                      Log Out
+                    </button>
+                  </Link>
+                </ul>
+          </div>
         </div>
-      {
-        open &&   <div className="absolute top-16 right-0 rounded-xl bg-slate-300 w-52 py-2 p-2">
-        <ul className="flex flex-col gap-2">
-            {/* TODO:user name show */}
-          <h2 className="px-2">{user?.displayName}</h2>
-          <hr className="border" />
-          <li className="hover:bg-gray-400 hover:text-rose-600 duration-500 p-2">
-            <Link>View Profile</Link>
-          </li>
-          <li onClick={()=>logOut()} className="hover:bg-gray-400 hover:text-rose-600 p-2 duration-500 cursor-pointer" >
-             Logout
-          </li>
-        </ul>
-      </div>
-      }
-      </div>
-    }
-    </>
+      ) : (
+        <div className={`flex gap-3 items-center `}>
+          <Link to="/userType">
+            <button className="py-2  px-10 cursor-pointer bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white">
+              Register
+            </button>
+          </Link>
+          <Link to="/login">
+            <button className="py-2 px-10 cursor-pointer border  border-rose-700 rounded-full text-gray-700">
+              Login
+            </button>
+          </Link>
+        </div>
+      )}
+    </div>
   );
 };
 

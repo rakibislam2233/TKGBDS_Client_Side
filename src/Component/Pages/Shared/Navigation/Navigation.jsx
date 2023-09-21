@@ -1,20 +1,24 @@
-import React from "react";
-import Container from "../Container/Container";
+import React, { useContext, useState } from "react";
 import Logo from "./Logo";
 import NavLink from "./NavigationLink";
 import MenuDropdown from "./MenuDropdown";
+import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
+import MobileDevice from "./MobileDevice";
 
 const Navigation = () => {
+  const [navOpen, setNavOpen] = useState(false);
+  const { user, logOut } = useContext(UserContext);
   return (
-    <nav className="w-full h-20 bg-slate-200 shadow-lg fixed z-50">
-      <Container>
-        <div className="w-fulll h-20 flex justify-between gap-2 items-center">
+    <>
+    <nav className="w-full h-20  sticky top-0 bg-rose-100 shadow-lg z-50">
+        <div className="w-fulll container mx-auto h-20 flex justify-between gap-2 items-center px-5">
             <Logo></Logo>
             <NavLink></NavLink>
-            <MenuDropdown></MenuDropdown>
+            <MenuDropdown user={user} logOut={logOut}></MenuDropdown>
+            <MobileDevice user={user} logOut={logOut} navOpen={navOpen} setNavOpen={setNavOpen}/>
         </div>
-      </Container>
     </nav>
+    </>
   );
 };
 
