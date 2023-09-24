@@ -148,7 +148,7 @@ const DonarSignup = () => {
                   type="text"
                   placeholder="Enter Your Name"
                   {...register("name", { required: true })}
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                  className="w-full input bg-gray-200 text-gray-900"
                 />
                 {errors.name && (
                   <span className="text-rose-500">Please enter your name</span>
@@ -162,7 +162,7 @@ const DonarSignup = () => {
                   type="email"
                   {...register("email", { required: true })}
                   placeholder="Enter Your Email"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                  className="w-full input bg-gray-200 text-gray-900"
                 />
                 {errors.email && (
                   <span className="text-rose-500">Please enter your email</span>
@@ -175,7 +175,7 @@ const DonarSignup = () => {
                 <input
                   type="password"
                   placeholder="********"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                  className="w-full input bg-gray-200 text-gray-900"
                   {...register("password", {
                     required: true,
                     minLength: 6,
@@ -205,7 +205,7 @@ const DonarSignup = () => {
                 <input
                   type="number"
                   placeholder="+880********"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                  className="w-full input bg-gray-200 text-gray-900"
                   {...register("phoneNumber", {
                     required: true,
                     minLength: 6,
@@ -224,12 +224,12 @@ const DonarSignup = () => {
                 </label>
                 <select
                   name="bloodGroup"
-                  className=" select  border-gray-300  bg-gray-200 text-gray-900"
+                  className="w-full  select border-gray-300  bg-gray-200 text-gray-900"
                   {...register("bloodGroup", {
                     required: true,
                   })}
                 >
-                  <option value="">Your Blood Group</option>
+                  <option  value="">Your Blood Group</option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
                   <option value="AB+">AB+</option>
@@ -253,7 +253,7 @@ const DonarSignup = () => {
 
                 <select
                   name="district"
-                  className="select w-full max-w-xs bg-gray-200 text-gray-900"
+                  className="select w-full bg-gray-200 text-gray-900"
                   {...register("district", {
                     required: true,
                   })}
@@ -296,7 +296,7 @@ const DonarSignup = () => {
                 <input
                   type="text"
                   placeholder="Enter Your Area"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                  className="w-full input bg-gray-200 text-gray-900"
                   {...register("area", {
                     required: true,
                   })}
@@ -312,9 +312,14 @@ const DonarSignup = () => {
                 <input
                   type="date"
                   placeholder="Enter Your Area"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
-                  {...register("date")}
+                  className="w-full input bg-gray-200 text-gray-900"
+                  {...register("date",{
+                    required: true,
+                  })}
                 />
+                 {errors.date?.type === "required" && (
+                  <span className="text-rose-500">Please enter Last Donation Date</span>
+                )}
               </div>
               <div className="w-full">
                 <label htmlFor="image" className="block mb-2 text-sm">
@@ -322,7 +327,7 @@ const DonarSignup = () => {
                 </label>
                 <input
                   type="file"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                  className="w-full input bg-gray-200 text-gray-900"
                   {...register("image")}
                 />
               </div>

@@ -34,7 +34,7 @@ const NormalUserRegister = () => {
       .then((res) => res.json())
       .then((imageData) => {
         const imageUrl = imageData.data.display_url;
-        const { name, email, password, phone, lastBDD } = data;
+        const { name, email, password,} = data;
         createNewUser(email, password)
           .then((result) => {
             const user = result.user;
@@ -42,8 +42,8 @@ const NormalUserRegister = () => {
               displayName: name,
               photoURL: imageUrl,
             });
-            const userInfo = { name, email, imageUrl,status:"normalUser"};
-            axios.put(`http://localhost:5000/users/${email}`,userInfo)
+            const userInfo = { name, email, imageUrl,password,status:"normalUser"};
+            axios.put(`http://localhost:5000/donar/${email}`,userInfo)
               .then((data) => {
                 setbtnLoading(false)
                 reset();
@@ -124,7 +124,7 @@ const NormalUserRegister = () => {
                     type="text"
                     placeholder="Enter Your Name"
                     {...register("name", { required: true })}
-                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                    className="w-full input bg-gray-200 text-gray-900"
                   />
                   {errors.name && (
                     <span className="text-rose-500">
@@ -140,7 +140,7 @@ const NormalUserRegister = () => {
                     type="email"
                     {...register("email", { required: true })}
                     placeholder="Enter Your Email"
-                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                    className="w-full input bg-gray-200 text-gray-900"
                   />
                   {errors.email && (
                     <span className="text-rose-500">
@@ -155,7 +155,7 @@ const NormalUserRegister = () => {
                   <input
                     type="password"
                     placeholder="********"
-                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                    className="w-full input bg-gray-200 text-gray-900"
                     {...register("password", {
                       required: true,
                       minLength: 6,
@@ -184,7 +184,7 @@ const NormalUserRegister = () => {
                   </label>
                   <input
                     type="file"
-                    className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                    className="w-full input bg-gray-200 text-gray-900"
                     {...register("image", {
                       required: true,
                     })}

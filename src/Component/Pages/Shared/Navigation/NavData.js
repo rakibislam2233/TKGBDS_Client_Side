@@ -4,12 +4,13 @@ const NavData = [
       title: "Home",
     },
     {
+      path:'/about',
+      title: "About"
+    }
+    ,
+    {
       path: "/find-donar",
       title: "Find Doner",
-    },
-    {
-      path: "/dontaionCenter",
-      title: "Donation Centers",
     },
     {
       path: "/faqs",

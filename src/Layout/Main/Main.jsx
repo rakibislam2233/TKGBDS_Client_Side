@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 
 const Main = () => {
     return (
-        <div className="w-full bg-white">
+        <div className="w-full bg-white overflow-hidden">
             <Navigation></Navigation>
             <Outlet></Outlet>
             <Footer></Footer>

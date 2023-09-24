@@ -20,7 +20,7 @@ const SingleDonar = () => {
   return (
     <>
     {
-        singleDonarLoading ? <Loading/> : <div className="w-full  py-20 p-5 bg-gradient-to-r from-rose-100 to-pink-200">
+        singleDonarLoading ? <Loading/> : <div className="w-full h-full  py-20 p-5 bg-gradient-to-r from-rose-100 to-pink-200">
         <div className="w-full md:w-1/2  rounded mx-auto shadow-xl flex flex-col md:flex-row  justify-between">
           <div className="w-full md:w-1/2 flex justify-center items-center rounded-l">
             <img

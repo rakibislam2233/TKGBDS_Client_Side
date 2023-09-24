@@ -2,20 +2,20 @@ import { Link, useNavigate } from "react-router-dom";
 const MenuDropdown = ({ user, logOut }) => {
   const naviget = useNavigate()
   return (
-    <div className="hidden md:block">
+    <div className="hidden lg:block">
       {user ? (
         <div className="flex-none">
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <label  tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-16 rounded-full">
                 <img src={user?.photoURL} />
               </div>
             </label>
             <ul
-                  tabIndex={0}
+                  // tabIndex={0}
                   className="mt-3 space-y-3 ml-3 border  py-5 shadow menu menu-sm dropdown-content z-30 bg-slate-50 rounded-box w-52 p-3"
                 >
-                  <label tabIndex={0} className="avatar ">
+                  <label className="avatar ">
                     <div className="w-16 mx-auto rounded-full">
                       <img className="" src={user?.photoURL} />
                     </div>
@@ -23,7 +23,7 @@ const MenuDropdown = ({ user, logOut }) => {
                   <h2 className="text-center font-semibold text-gray-700">
                     {user?.displayName}
                   </h2>
-                  <Link>
+                  <Link to= '/dashboard'>
                     <button className="w-full py-2  px-10 cursor-pointer bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white">
                       View Profile
                     </button>

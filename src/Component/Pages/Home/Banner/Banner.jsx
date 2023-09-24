@@ -1,14 +1,14 @@
-import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import SliderComponent from "./SliderComponent/SliderComponent";
+import { useKeenSlider } from "keen-slider/react";
+import slider2 from "../../../../assets/Banner/slider2.jpg";
+import slider1 from "../../../../assets/Banner/slider7.jpg";
+import image2 from "../../../../assets/Banner/banner2.jpg";
+import image3 from "../../../../assets/Banner/Banner3.jpg";
 import blood from "../../../../assets/Lottifiles/animation_lmt2e0ae.json";
 import blood2 from "../../../../assets/Lottifiles/animation_lmt2e8hg.json";
 import blood3 from "../../../../assets/Lottifiles/animation_lmt2hpql.json";
 import blood4 from "../../../../assets/Lottifiles/animation_lmt2i80u.json";
-import image1 from "../../../../assets/Banner/banner.jpeg";
-import image2 from "../../../../assets/Banner/banner2.jpg";
-import image3 from "../../../../assets/Banner/Banner3.jpg";
-// import { Helmet } from "react-helmet";
+import SlideComponent from "./SlideComponent";
 const Banner = () => {
   const [sliderRef] = useKeenSlider(
     {
@@ -45,44 +45,23 @@ const Banner = () => {
       },
     ]
   );
-
   return (
-    <>
-      <div className="w-full">
-        {/* this is a react helmet */}
-        {/* <Helmet>
-        <title>Home</title>
-      </Helmet> */}
-        {/* banner section added */}
-        <div ref={sliderRef} className="keen-slider">
-          <div className="keen-slider__slide number-slide1">
-            <SliderComponent
-              images={image1}
-              animation={blood}
-            ></SliderComponent>
-          </div>
-          <div className="keen-slider__slide number-slide1">
-            <SliderComponent
-              images={image2}
-              animation={blood2}
-            ></SliderComponent>
-          </div>
-          <div className="keen-slider__slide number-slide1">
-            <SliderComponent
-              images={image1}
-              animation={blood3}
-            ></SliderComponent>
-          </div>
-          <div className="keen-slider__slide number-slide1">
-            <SliderComponent
-              images={image3}
-              animation={blood4}
-            ></SliderComponent>
-          </div>
+    <div className="w-full h-full md:h-screen">
+      <div ref={sliderRef} className="keen-slider">
+        <div className="keen-slider__slide number-slide1">
+          <SlideComponent image={slider1} animation={blood}/>
         </div>
-        {/* banner section end */}
+        <div className="keen-slider__slide number-slide1">
+        <SlideComponent image={slider2} animation={blood2}/>
+        </div>
+        <div className="keen-slider__slide number-slide1">
+        <SlideComponent image={image2} animation={blood3}/>
+        </div>
+        <div className="keen-slider__slide number-slide1">
+        <SlideComponent image={image3} animation={blood4}/>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

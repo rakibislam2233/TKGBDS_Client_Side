@@ -8,6 +8,11 @@ import Main from "../../Layout/Main/Main";
 import DonarSignup from "../../Component/Pages/Auth/Signup/DonarSignup";
 import Donar from "../../Component/FindDonar/Donar";
 import SingleDonar from "../../Component/FindDonar/SingleDonar";
+import Dashboard from "../../Layout/Dashboard/Dashboard";
+import MyProfile from "../../Layout/Dashboard/User/MyProfile";
+import Address from "../../Layout/Dashboard/User/Address";
+import ApplicationBlood from "../../Layout/Dashboard/User/ApplicationBlood";
+import RequestedBlood from "../../Layout/Dashboard/User/RequestedBlood";
 
 const router = createBrowserRouter([
   {
@@ -54,5 +59,44 @@ const router = createBrowserRouter([
     path: "login",
     element: <Login></Login>,
   },
+  {
+    path:'/dashboard',
+    element:<Dashboard/>,
+    errorElement:<>Error</>,
+    children:[
+      // Amdin routes start
+      {
+        path:'admin-home',
+        element:<>Admin Home</>
+      }
+      ,
+      {
+        path:'manage-users',
+        element:<>ManageUser</>
+      },
+      // Admin routes End
+
+      // User routes Start
+      {
+        path:'my-profile',
+        element:<MyProfile/>
+      }
+      ,
+      {
+        path:"address",
+        element:<Address/>
+      }
+      ,
+      {
+        path:'application-blood',
+        element: <ApplicationBlood/>
+       }
+       ,
+       {
+        path:'Requested-Blood',
+        element:<RequestedBlood/>
+       }
+    ]
+  }
 ]);
 export default router;

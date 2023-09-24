@@ -100,7 +100,7 @@ const Login = () => {
                   type="email"
                   placeholder="Enter Your Email"
                   {...register("email", { required: true })}
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                  className="w-full input bg-gray-200 text-gray-900"
                 />
                 {errors.email && (
                   <span className="text-rose-500">Please enter your email</span>
@@ -114,7 +114,7 @@ const Login = () => {
                   type={`${hide ? "text" : "password"}`}
                   placeholder="********"
                   {...register("password", { required: true })}
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                  className="w-full input bg-gray-200 text-gray-900"
                 />
                 <div
                   onClick={() => setHide(!hide)}

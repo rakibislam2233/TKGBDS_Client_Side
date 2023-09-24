@@ -5,7 +5,7 @@ import NavData from "./NavData";
 const MobileDevice = ({ navOpen, setNavOpen, user, logOut }) => {
   const  naviget = useNavigate()
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button onClick={() => setNavOpen(!navOpen)}>
         <HiMenuAlt3 className="w-8 h-8"></HiMenuAlt3>
       </button>
