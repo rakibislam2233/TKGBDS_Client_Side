@@ -278,16 +278,6 @@ const DonarSignup = () => {
                     Please enter your District
                   </span>
                 )}
-                {errors.password?.type === "minLength" && (
-                  <span className="text-rose-500">
-                    Password must be 6 characters
-                  </span>
-                )}
-                {errors.password?.type === "maxLength" && (
-                  <span className="text-rose-500">
-                    Password must be less then 15 characters
-                  </span>
-                )}
               </div>
               <div className="w-full">
                 <label htmlFor="phoneNumber" className="block mb-2 text-sm">

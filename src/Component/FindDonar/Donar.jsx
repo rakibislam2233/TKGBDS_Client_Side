@@ -9,7 +9,6 @@ import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
 const Donar = () => {
   const [donars, setDonars] = useState([]);
   const [donarLoading, setdonarLoading] = useState(true);
-  const [seemore, setseemore] = useState(true)
   useEffect(() => {
     axios
       .get(`http://localhost:5000/get-all-donar`)

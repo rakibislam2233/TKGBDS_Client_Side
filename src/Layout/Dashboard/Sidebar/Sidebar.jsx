@@ -15,7 +15,7 @@ const Sidebar = () => {
       <UserNavlink/>
       <div className="flex justify-center">
         <Link to='/'>
-        <button  className="py-2  px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded text-white flex items-center gap-1">
+        <button  className="py-2  px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white flex items-center gap-1">
           Back to home
           <HiArrowLeftOnRectangle className="w-5 h-5" />
         </button>

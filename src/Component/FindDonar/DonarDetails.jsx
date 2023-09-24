@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-
+import donarBgimage from "../../assets/Donar/love.jpg";
+import { useContext } from "react";
+import { UserContext } from "../../Provider/AuthProvider/AuthProvider";
 const DonarDetails = ({ donar }) => {
-  const donarBgimage = "/src/assets/Donar/love.jpg";
+  const { user } = useContext(UserContext);
   const lastDate = new Date(donar.date);
   const today = new Date();
-
   // Calculate the difference in months
   const monthsDifference =
     (today.getFullYear() - lastDate.getFullYear()) * 12 +
     (today.getMonth() - lastDate.getMonth());
-  console.log(monthsDifference);
   return (
     <div className="w-full rounded border hover:shadow-lg">
       <Link to={`/singleDonar/${donar._id}`}>
@@ -44,11 +44,20 @@ const DonarDetails = ({ donar }) => {
             </div>
           )}
         </>
-        <Link to={`/singleDonar/${donar._id}`}>
-          <button className="py-2 my-5 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white">
+        {donar?.email === user?.email ? (
+          <button
+            disabled
+            className="py-2 my-5 px-5 bg-gray-500 rounded-full text-white"
+          >
             View Details
           </button>
-        </Link>
+        ) : (
+          <Link to={`/singleDonar/${donar._id}`}>
+            <button className="py-2 my-5 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white">
+              View Details
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
