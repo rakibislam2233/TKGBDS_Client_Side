@@ -44,20 +44,11 @@ const DonarDetails = ({ donar }) => {
             </div>
           )}
         </>
-        {donar?.email === user?.email ? (
-          <button
-            disabled
-            className="py-2 my-5 px-5 bg-gray-500 rounded-full text-white"
-          >
-            View Details
-          </button>
-        ) : (
-          <Link to={`/singleDonar/${donar._id}`}>
+        <Link to={`/singleDonar/${donar._id}`}>
             <button className="py-2 my-5 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white">
               View Details
             </button>
           </Link>
-        )}
       </div>
     </div>
   );

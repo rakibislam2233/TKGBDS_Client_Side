@@ -4,13 +4,15 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import Loading from "../Pages/Shared/Loading";
 import DisplayModal from "../Pages/Shared/DisplayModal";
+import useUser from "../../hook/UseUser";
 const SingleDonar = () => {
+  const [user] = useUser()
   const { id } = useParams();
   const [singelDonar, setsingleDonar] = useState({});
   const [singleDonarLoading, setsingleDonarLoading] = useState(true);
   const [isOpen,setIsOpen] = useState(false)
   useEffect(() => {
-    axios(`http://localhost:5000/get-single-donar/${id}`)
+    axios(`http://localhost:5000/get-single-donar-byId/${id}`)
       .then((res) => {
         setsingleDonar(res.data);
         setsingleDonarLoading(false);
@@ -50,12 +52,17 @@ const SingleDonar = () => {
                 {monthsDifference < 3 ? (
                   <h1>Last Donation Date : {singelDonar?.date}</h1>
                 ) : (
-                  <div>
-                    <button onClick={()=>setIsOpen(!isOpen)}  className="btn justify-center mt-1 btn-xs btn-secondary">
-                      Application For Blood
-                    </button>
+                  <>
+                  {
+                    user?.email === singelDonar?.email ? <button disabled className="py-0.5 px-2 bg-pink-500 rounded text-white">
+                     Application For Blood
+                  </button> : <button onClick={()=>setIsOpen(!isOpen)}  className="btn justify-center mt-1 btn-xs btn-secondary">
+                    Application For Blood
+                  </button>
+                  }
+                    
                     <DisplayModal singleDonar={singelDonar} isOpen={isOpen} setIsOpen={setIsOpen}/>
-                  </div>
+                  </>
                 )}
               </>
               <h3>Phone Number : {singelDonar.phoneNumber}</h3>

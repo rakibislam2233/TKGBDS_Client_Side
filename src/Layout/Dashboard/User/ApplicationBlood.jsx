@@ -1,25 +1,11 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../Provider/AuthProvider/AuthProvider";
-import toast from "react-hot-toast";
 import Loading from "../../../Component/Pages/Shared/Loading";
 import NoDataFound from "../../../Component/Pages/Shared/NoDataFound";
-
+import useApplicationBlood from "../../../hook/useApplicationBlood";
 const ApplicationBlood = () => {
-  const { user } = useContext(UserContext);
-  const [applicationBlood, setApplicationBlood] = useState([]);
-  const [applicationBloodLoading, setApplicationBloodLoading] = useState(true);
-  useEffect(() => {
-    axios(`http://localhost:5000/get-applicationPerson/${user?.email}`)
-      .then((res) => {
-        setApplicationBloodLoading(false);
-        setApplicationBlood(res.data);
-      })
-      .catch((err) => toast.error(err.message));
-  }, [user]);
+  const [applicationBlood,isLoading] = useApplicationBlood()
   return (
     <>
-      {applicationBloodLoading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <div className="w-full p-5">
@@ -48,7 +34,7 @@ const ApplicationBlood = () => {
                         <>
                           <th>{applied?.donarName}</th>
                           <th>{applied?.bloodGroup}</th>
-                          <th>{applied?.amountBlood}</th>
+                          <th>{applied?.amountBlood} Bag</th>
                           <th>{applied?.donateDate}</th>
                           <th>{applied?.donateTime}</th>
                           <th>{applied?.donatePlace}</th>

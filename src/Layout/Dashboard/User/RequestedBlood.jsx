@@ -1,27 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../Provider/AuthProvider/AuthProvider";
 import axios from "axios";
-import toast from "react-hot-toast";
 import Loading from "../../../Component/Pages/Shared/Loading";
 import NoDataFound from "../../../Component/Pages/Shared/NoDataFound";
+import useRequestedBlood from "../../../hook/useRequestedBlood";
+import toast from "react-hot-toast";
+import useUser from "../../../hook/UseUser";
 
 const RequestedBlood = () => {
-  const { user } = useContext(UserContext);
-  const [requestedBlood, setRequestedBlood] = useState([]);
-  const [requestedBloodLoading, setRequestedBloodLoading] = useState(true);
-  useEffect(() => {
-    axios(`http://localhost:5000/request-blood/${user?.email}`)
-      .then((res) => {
-        setRequestedBloodLoading(false);
-        setRequestedBlood(res.data);
-      })
-      .catch((err) => toast.error(err.message));
-  }, [user]);
-
-  console.log(requestedBlood);
+  const [requestedBlood, isLoading,refetch] = useRequestedBlood();
+  const [user] = useUser()
+  const updateStatus = ()=>{
+    axios.put(`http://localhost:5000/request-blood-update/${user?.email}`,{status:"approved"})
+    .then(res=>{
+      if(res.data.modifiedCount>0){
+        toast.success("Status updated successfully")
+        refetch()
+      }
+    })
+    .catch(err => toast.error(err.message));
+    ;
+  }
   return (
     <>
-      {requestedBloodLoading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <div className="w-full p-5">
@@ -45,23 +45,26 @@ const RequestedBlood = () => {
                     </tr>
                   </thead>
                   <tbody className="text-sm">
-                    <tr>
-                      {requestedBlood.map((applied) => (
-                        <>
-                          <th>{applied?.donarName}</th>
+                      {requestedBlood?.map((applied) => (
+                        <tr key={applied._id}>
+                          <th>{applied?.patientName}</th>
                           <th>{applied?.bloodGroup}</th>
-                          <th>{applied?.amountBlood}</th>
+                          <th>{applied?.amountBlood} Bag</th>
                           <th>{applied?.donateDate}</th>
                           <th>{applied?.donateTime}</th>
                           <th>{applied?.donatePlace}</th>
                           <th>
-                            <button className="btn btn-xs btn-secondary">
+                            {
+                              applied?.status === 'pending' ? <button onClick={updateStatus} className="btn btn-xs btn-secondary">
+                              {applied?.status}
+                            </button> : <button disabled className="py-0.5 px-2 bg-pink-500 rounded text-white">
                               {applied?.status}
                             </button>
+                            }
+                            
                           </th>
-                        </>
+                        </tr>
                       ))}
-                    </tr>
                   </tbody>
                 </table>
               </div>

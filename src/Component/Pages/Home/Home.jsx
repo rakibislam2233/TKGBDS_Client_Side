@@ -10,7 +10,7 @@ const Home = () => {
             <Banner/>
             <DonationBlood/>
             <BloodType/>
-            <DonationBloodBenifits/>
+            {/* <DonationBloodBenifits/> */}
         </div>
     );
 };

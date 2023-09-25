@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import Footer from "../../Component/Pages/Shared/Footer/Footer"
 import Navigation from "../../Component/Pages/Shared/Navigation/Navigation"
 import Sidebar from "./Sidebar/Sidebar"
+import { Toaster } from "react-hot-toast"
 
 const Dashboard = () => {
   return (
@@ -16,6 +17,7 @@ const Dashboard = () => {
       </div>
     </div>
     <Footer/>
+    <Toaster/>
     </div>
   )
 }

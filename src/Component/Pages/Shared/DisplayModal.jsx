@@ -3,10 +3,11 @@ import Modal from "./Modal/Modal";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { UserContext } from "../../../Provider/AuthProvider/AuthProvider";
+import useUser from "../../../hook/UseUser";
 
 
 const DisplayModal = ({ isOpen, setIsOpen,singleDonar }) => {
-    const {user} = useContext(UserContext)
+  const [user] = useUser()
     const handelSubmit = (e)=>{
         e.preventDefault();
         const form = e.target;
@@ -16,7 +17,7 @@ const DisplayModal = ({ isOpen, setIsOpen,singleDonar }) => {
         const donateTime = form.donateTime.value;
         const donatePlace = form.donatePlace.value;
         const contact = form.contact.value;
-        const applicationForBlood = {patientProblem,amountBlood,donateDate,donateTime,donatePlace,contact,donarEmail: singleDonar?.email,donarName:singleDonar?.name,appliedPersonEmail:user?.email,status:"pending",bloodGroup:singleDonar?.bloodGroup}
+        const applicationForBlood = {patientProblem,amountBlood,donateDate,donateTime,donatePlace,contact,donarEmail: singleDonar?.email,donarName:singleDonar?.name,appliedPersonEmail:user?.email,status:"pending",bloodGroup:singleDonar?.bloodGroup,patientName:user?.displayName}
         axios.post(`http://localhost:5000/post-applicattionForBlood`,applicationForBlood)
         .then(res=>{
             if(res.data.insertedId){
