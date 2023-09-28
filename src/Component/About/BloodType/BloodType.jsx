@@ -1,19 +1,19 @@
+import a from '../../../assets/BloodGroup/A+.jpg'
+import a2 from '../../../assets/BloodGroup/A-.jpg'
+import b from '../../../assets/BloodGroup/B+.jpg'
+import b2 from '../../../assets/BloodGroup/B-.jpg'
+import ab from '../../../assets/BloodGroup/AB+.png'
+import ab2 from '../../../assets/BloodGroup/AB-.png'
+import o from '../../../assets/BloodGroup/O+.jpg'
+import o2 from '../../../assets/BloodGroup/O-.jpg'
 const BloodType = () => {
-  const a = "/src/assets/BloodGroup/A+.jpg";
-  const a2 = "/src/assets/BloodGroup/A-.jpg";
-  const b =  "/src/assets/BloodGroup/B+.jpg";
-  const b2 =  "/src/assets/BloodGroup/B-.jpg";
-  const ab = "/src/assets/BloodGroup/AB+.png";
-  const ab2 = "/src/assets/BloodGroup/AB-.png";
-  const o = "/src/assets/BloodGroup/O+.jpg";
-  const o2 = "/src/assets/BloodGroup/O-.jpg";
   return (
     <div className="w-full py-16  p-5 container mx-auto">
       <h3 className="text-2xl pb-5 text-center text-rose-700 underline">
         কয়টি ভিন্ন রক্তের গ্রুপ আছে?
       </h3>
       <div className="py-10 grid grid-cols-1 md:grid-cols-2 gap-10 text-gray-700">
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row gap-2">
           <img className="w-32 h-32 mx-auto" src={a} alt="" />
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">
@@ -26,7 +26,7 @@ const BloodType = () => {
             </h4>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row gap-2">
           <img className="w-32 h-32 mx-auto" src={a2} alt="" />
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">
@@ -40,7 +40,7 @@ const BloodType = () => {
           </div>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row gap-2">
           <img className="w-32 h-32 mx-auto" src={ab} alt="" />
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">
@@ -52,7 +52,7 @@ const BloodType = () => {
             </h4>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row gap-2">
           <img className="w-32 h-32 mx-auto" src={ab2} alt="" />
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">
@@ -63,7 +63,7 @@ const BloodType = () => {
             </h4>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row gap-2">
           <img className="w-32 h-32 mx-auto" src={b} alt="" />
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">
@@ -74,7 +74,7 @@ const BloodType = () => {
             </h4>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row  gap-2">
           <img className="w-32 h-32 mx-auto" src={b2} alt="" />
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">
@@ -85,7 +85,7 @@ const BloodType = () => {
             </h4>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row gap-2">
           <img className="w-32 h-32 mx-auto" src={o} alt="" />
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">
@@ -97,8 +97,8 @@ const BloodType = () => {
             </h4>
           </div>
         </div>
-        <div className="flex gap-2">
-          <img className="w-32 h-32 mx-auto" src={o} alt="" />
+        <div className="flex flex-col md:flex-row gap-2">
+          <img className="w-32 h-32 mx-auto" src={o2} alt="" />
           <div className="space-y-2">
             <h3 className="text-xl font-semibold">
             O- রক্তের অসামান্য ক্ষমতা রয়েছে — বাংলাদেশের মাত্র ০.৫৩% এই রক্তের গ্রুপ ভাগ করে।

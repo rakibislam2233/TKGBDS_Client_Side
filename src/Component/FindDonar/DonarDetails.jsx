@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import donarBgimage from "../../assets/Donar/love.jpg";
-import { useContext } from "react";
-import { UserContext } from "../../Provider/AuthProvider/AuthProvider";
 const DonarDetails = ({ donar }) => {
-  const { user } = useContext(UserContext);
   const lastDate = new Date(donar.date);
   const today = new Date();
   // Calculate the difference in months

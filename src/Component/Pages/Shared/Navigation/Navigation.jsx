@@ -10,7 +10,7 @@ const Navigation = () => {
   const { user, logOut } = useContext(UserContext);
   return (
     <>
-    <nav className="w-full h-20  bg-rose-100 shadow-lg z-50">
+    <nav className="w-full h-20 bg-rose-100  z-50 ">
         <div className="w-fulll container mx-auto h-20 flex justify-between gap-2 items-center px-5">
             <Logo></Logo>
             <NavLink></NavLink>

@@ -1,18 +1,24 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPages from "../../Component/ErrorPages/ErrorPages";
+import SingleDonar from "../../Component/FindDonar/SingleDonar";
 import Login from "../../Component/Pages/Auth/Login/Login";
+import DonarSignup from "../../Component/Pages/Auth/Signup/DonarSignup";
 import NormalUserRegister from "../../Component/Pages/Auth/Signup/NormalUserRegister";
 import UserType from "../../Component/Pages/Auth/Signup/userType";
-import Home from "../../Component/Pages/Home/Home";
-import Main from "../../Layout/Main/Main";
-import DonarSignup from "../../Component/Pages/Auth/Signup/DonarSignup";
-import Donar from "../../Component/FindDonar/Donar";
-import SingleDonar from "../../Component/FindDonar/SingleDonar";
+import AdminProfile from "../../Layout/Dashboard/Admin/AdminProfile";
+import ManageUsers from "../../Layout/Dashboard/Admin/ManageUsers";
 import Dashboard from "../../Layout/Dashboard/Dashboard";
-import MyProfile from "../../Layout/Dashboard/User/MyProfile";
 import Address from "../../Layout/Dashboard/User/Address";
 import ApplicationBlood from "../../Layout/Dashboard/User/ApplicationBlood";
+import BecomeADonar from "../../Layout/Dashboard/User/BecomeADonar";
+import DonarGallery from "../../Layout/Dashboard/User/DonarGallery";
+import MyProfile from "../../Layout/Dashboard/User/MyProfile";
 import RequestedBlood from "../../Layout/Dashboard/User/RequestedBlood";
+import Main from "../../Layout/Main/Main";
+import AboutPage from "../../Page/AboutPage";
+import FindDonar from "../../Page/FindDonar";
+import HomePage from "../../Page/HomePage";
+import Contact from "../../Component/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -22,21 +28,32 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <HomePage/>,
       },
       {
-        path: "/userType",
-        element: <UserType />,
-      },
+        path:'/about',
+        element:<AboutPage/>
+      }
+      ,
       {
         path:'/find-donar',
-        element:<Donar/>
+        element:<FindDonar/>
       }
       ,
       {
         path:'/singleDonar/:id',
         element:<SingleDonar/>
       }
+      ,
+      {
+        path:'/contact',
+        element:<Contact/>
+      }
+      ,
+      {
+        path: "/userType",
+        element: <UserType />,
+      },
     ],
   },
   {
@@ -56,6 +73,11 @@ const router = createBrowserRouter([
     element: <NormalUserRegister />,
   },
   {
+    path:'/become-a-donar',
+    element:<BecomeADonar/>
+  }
+  ,
+  {
     path: "login",
     element: <Login></Login>,
   },
@@ -66,13 +88,13 @@ const router = createBrowserRouter([
     children:[
       // Amdin routes start
       {
-        path:'admin-home',
-        element:<>Admin Home</>
+        path:'admin-profile',
+        element:<AdminProfile/>
       }
       ,
       {
         path:'manage-users',
-        element:<>ManageUser</>
+        element:<ManageUsers/>
       },
       // Admin routes End
 
@@ -93,8 +115,13 @@ const router = createBrowserRouter([
        }
        ,
        {
-        path:'Requested-Blood',
+        path:'requested-Blood',
         element:<RequestedBlood/>
+       }
+       ,
+       {
+        path:'gallery',
+        element:<DonarGallery/>
        }
     ]
   }

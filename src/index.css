@@ -2,6 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+    .input-field {
+        @apply w-full outline-none focus:outline-1 focus:outline-red-500 py-2 px-3 bg-gray-200 text-gray-900 rounded
+    }
+    .newBTN{
+     @apply  py-2  px-5 cursor-pointer bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white border-none
+    }
+  }
 body{
     font-family: 'Signika', sans-serif;
 }

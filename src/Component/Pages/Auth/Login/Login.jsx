@@ -32,9 +32,7 @@ const Login = () => {
       })
       .catch((err) => {
         setbtnLoading(false)
-        toast.error(err.message,{
-          position:'top-right'
-        });
+        console.log(err.message)
       });
   };
   // const LoginWithGoogle = () => {
@@ -66,12 +64,12 @@ const Login = () => {
   //           naviget(from, { replace: true });
   //         })
   //         .catch((err) => {
-  //           toast.error(err.message);
+  //           console.log(err.message)
   //         });
   //     })
   //     .catch((err) => {
   //       err.message;
-  //       toast.error(err.message);
+  //       console.log(err.message)
   //     });
   // };
   return (
@@ -100,7 +98,7 @@ const Login = () => {
                   type="email"
                   placeholder="Enter Your Email"
                   {...register("email", { required: true })}
-                  className="w-full input bg-gray-200 text-gray-900"
+                  className="input-field"
                 />
                 {errors.email && (
                   <span className="text-rose-500">Please enter your email</span>
@@ -114,7 +112,7 @@ const Login = () => {
                   type={`${hide ? "text" : "password"}`}
                   placeholder="********"
                   {...register("password", { required: true })}
-                  className="w-full input bg-gray-200 text-gray-900"
+                  className="input-field"
                 />
                 <div
                   onClick={() => setHide(!hide)}
@@ -149,11 +147,11 @@ const Login = () => {
             <div className="py-3">
               <button
                 type="submit"
-                className="w-full py-2  px-10 cursor-pointer bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white"
+                className="w-full newBTN"
               >
                 {btnLoading ? (
                   <div className="flex justify-center">
-                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>
+                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>Loading...
                   </div>
                 ) : (
                   "Login"

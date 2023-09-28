@@ -13,12 +13,8 @@ const NavData = [
       title: "Find Doner",
     },
     {
-      path: "/faqs",
-      title: "FAQS",
-    },
-    {
-      path: "/contactUs",
-      title: "Contact Us",
+      path: "/contact",
+      title: "Contact",
     },
   ];
 

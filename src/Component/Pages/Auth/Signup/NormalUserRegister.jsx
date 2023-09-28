@@ -1,16 +1,16 @@
+import axios from "axios";
 import { updateProfile } from "firebase/auth";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
-const signupImage = "/src/assets/SignUp/signup.webp";
 import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+const signupImage = "/src/assets/SignUp/signup.webp";
 
 const NormalUserRegister = () => {
-  const [btnLoading,setbtnLoading] = useState(false);
-  const { createNewUser, googleLogin, loading } = useContext(UserContext);
+  const [btnLoading, setbtnLoading] = useState(false);
+  const { createNewUser,} = useContext(UserContext);
   const naviget = useNavigate();
   const {
     register,
@@ -19,8 +19,7 @@ const NormalUserRegister = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    //imagebb website photo Upload
-    setbtnLoading(true)
+    setbtnLoading(true);
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
@@ -34,7 +33,7 @@ const NormalUserRegister = () => {
       .then((res) => res.json())
       .then((imageData) => {
         const imageUrl = imageData.data.display_url;
-        const { name, email, password,} = data;
+        const { name, email, password } = data;
         createNewUser(email, password)
           .then((result) => {
             const user = result.user;
@@ -42,21 +41,24 @@ const NormalUserRegister = () => {
               displayName: name,
               photoURL: imageUrl,
             });
-            const userInfo = { name, email, imageUrl,password,status:"normalUser"};
-            axios.put(`http://localhost:5000/donar/${email}`,userInfo)
+            const userInfo = { name, email, imageUrl, password, role: "user" };
+            axios
+              .put(`https://tkgbds-server-side.vercel.app/donar/${email}`, userInfo)
               .then((data) => {
-                setbtnLoading(false)
-                reset();
-                naviget("/login");
+                if (data) {
+                  setbtnLoading(false);
+                  reset();
+                  naviget("/login");
+                }
               })
               .catch((err) => {
-                setbtnLoading(false)
-                toast.error(err.message);
+                setbtnLoading(false);
+               toast.error(err.message)
               });
           })
           .catch((err) => {
-            err.message;
-            toast.error(err.message);
+            setbtnLoading(false);
+            toast.error(err.message)
           });
       });
   };
@@ -89,12 +91,12 @@ const NormalUserRegister = () => {
   //           naviget("/");
   //         })
   //         .catch((err) => {
-  //           toast.error(err.message);
+  //           console.log(err.message)
   //         });
   //     })
   //     .catch((err) => {
   //       err.message;
-  //       toast.error(err.message);
+  //       console.log(err.message)
   //     });
   // };
   return (
@@ -124,7 +126,7 @@ const NormalUserRegister = () => {
                     type="text"
                     placeholder="Enter Your Name"
                     {...register("name", { required: true })}
-                    className="w-full input bg-gray-200 text-gray-900"
+                    className="input-field"
                   />
                   {errors.name && (
                     <span className="text-rose-500">
@@ -140,7 +142,7 @@ const NormalUserRegister = () => {
                     type="email"
                     {...register("email", { required: true })}
                     placeholder="Enter Your Email"
-                    className="w-full input bg-gray-200 text-gray-900"
+                    className="input-field"
                   />
                   {errors.email && (
                     <span className="text-rose-500">
@@ -155,7 +157,7 @@ const NormalUserRegister = () => {
                   <input
                     type="password"
                     placeholder="********"
-                    className="w-full input bg-gray-200 text-gray-900"
+                    className="input-field"
                     {...register("password", {
                       required: true,
                       minLength: 6,
@@ -184,7 +186,7 @@ const NormalUserRegister = () => {
                   </label>
                   <input
                     type="file"
-                    className="w-full input bg-gray-200 text-gray-900"
+                    className="input-field"
                     {...register("image", {
                       required: true,
                     })}
@@ -198,35 +200,20 @@ const NormalUserRegister = () => {
                 </div>
               </div>
               <div className="py-3">
-              <button
-                type="submit"
-                className="w-full py-2  px-10 cursor-pointer bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white"
-              >
-                {btnLoading ? (
-                  <div className="flex justify-center">
-                    <ImSpinner9 className="w-8 h-8 animate-spin"></ImSpinner9>
+                <button type="submit" className="w-full newBTN">
+                  {btnLoading ? (
+                    <div className="flex justify-center">
+                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>Loading...
                   </div>
-                ) : (
-                  "Create Account"
-                )}
-              </button>
+                  ) : (
+                    "Create Account"
+                  )}
+                </button>
               </div>
             </form>
-            {/* <div className="flex items-center py-2">
-            <div className="w-full h-[1px]  bg-gray-500"></div>
-            <div className="mx-3">Or</div>
-            <div className="w-full h-[1px] bg-gray-500"></div>
-          </div>
-          <div
-            onClick={LoginWithGoogle}
-            className="flex justify-center items-center space-x-2 border m-3 p-2  border-gray-500 cursor-pointer"
-          >
-            <FcGoogle size={32} />
-
-            <p>Continue with Google</p>
-          </div> */}
             <p className="px-6 text-center text-gray-400">
-              Already have an account? <Link
+              Already have an account?{" "}
+              <Link
                 to="/login"
                 className="hover:underline hover:text-rose-500 text-gray-600"
               >
@@ -238,7 +225,7 @@ const NormalUserRegister = () => {
         </div>
       </div>
 
-      <Toaster/>
+      <Toaster />
     </>
   );
 };

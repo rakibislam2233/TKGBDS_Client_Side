@@ -1,17 +1,17 @@
+import axios from "axios";
 import { updateProfile } from "firebase/auth";
+import moment from "moment/moment";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
-const signupImage = "/src/assets/SignUp/signup.webp";
 import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
-import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import signupImage from "../../../../assets/SignUp/signup.webp";
 
 const DonarSignup = () => {
   const [btnLoading, setbtnLoading] = useState(false);
-  const { createNewUser, googleLogin, loading } = useContext(UserContext);
+  const { createNewUser } = useContext(UserContext);
   const naviget = useNavigate();
   const {
     register,
@@ -21,6 +21,8 @@ const DonarSignup = () => {
   } = useForm();
   const onSubmit = (data) => {
     setbtnLoading(true);
+    const userDate = data.date;
+    const formattedDate = moment(userDate).format("DD MMM YYYY");
     //imagebb website photo Upload
     const image = data.image[0];
     const formData = new FormData();
@@ -29,7 +31,6 @@ const DonarSignup = () => {
     const url = `https://api.imgbb.com/1/upload?key=${
       import.meta.env.VITE_IMGBB_KEY
     }`;
-    console.log(url);
     fetch(url, {
       method: "POST",
       body: formData,
@@ -45,7 +46,6 @@ const DonarSignup = () => {
           bloodGroup,
           district,
           area,
-          date,
         } = data;
         createNewUser(email, password)
           .then((result) => {
@@ -62,26 +62,27 @@ const DonarSignup = () => {
               bloodGroup,
               district,
               area,
-              date,
+              date: formattedDate,
               imageUrl,
-              status: "donar",
+              role: "donar",
             };
-            console.log(userInfo);
             axios
-              .put(`http://localhost:5000/donar/${email}`, userInfo)
-              .then((data) => {
+              .put(`https://tkgbds-server-side.vercel.app/donar/${email}`, userInfo)
+              .then((res) => {
+                if (res.data) {
                   setbtnLoading(false);
                   reset();
                   naviget("/login");
+                }
               })
               .catch((err) => {
-                setbtnLoading(false)
-                toast.error(err.message);
+                setbtnLoading(false);
+               toast.error(err.message)
               });
           })
           .catch((err) => {
             err.message;
-            toast.error(err.message);
+           toast.error(err.message)
           });
       });
   };
@@ -114,12 +115,12 @@ const DonarSignup = () => {
   //           naviget("/");
   //         })
   //         .catch((err) => {
-  //           toast.error(err.message);
+  //           console.log(err.message)
   //         });
   //     })
   //     .catch((err) => {
   //       err.message;
-  //       toast.error(err.message);
+  //      console.log(err.message)
   //     });
   // };
   return (
@@ -148,7 +149,7 @@ const DonarSignup = () => {
                   type="text"
                   placeholder="Enter Your Name"
                   {...register("name", { required: true })}
-                  className="w-full input bg-gray-200 text-gray-900"
+                  className="input-field"
                 />
                 {errors.name && (
                   <span className="text-rose-500">Please enter your name</span>
@@ -162,7 +163,7 @@ const DonarSignup = () => {
                   type="email"
                   {...register("email", { required: true })}
                   placeholder="Enter Your Email"
-                  className="w-full input bg-gray-200 text-gray-900"
+                  className="input-field"
                 />
                 {errors.email && (
                   <span className="text-rose-500">Please enter your email</span>
@@ -175,7 +176,7 @@ const DonarSignup = () => {
                 <input
                   type="password"
                   placeholder="********"
-                  className="w-full input bg-gray-200 text-gray-900"
+                  className="input-field"
                   {...register("password", {
                     required: true,
                     minLength: 6,
@@ -205,7 +206,7 @@ const DonarSignup = () => {
                 <input
                   type="number"
                   placeholder="+880********"
-                  className="w-full input bg-gray-200 text-gray-900"
+                  className="input-field"
                   {...register("phoneNumber", {
                     required: true,
                     minLength: 6,
@@ -224,12 +225,12 @@ const DonarSignup = () => {
                 </label>
                 <select
                   name="bloodGroup"
-                  className="w-full  select border-gray-300  bg-gray-200 text-gray-900"
+                  className=" select input-field"
                   {...register("bloodGroup", {
                     required: true,
                   })}
                 >
-                  <option  value="">Your Blood Group</option>
+                  <option value="">Your Blood Group</option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
                   <option value="AB+">AB+</option>
@@ -253,7 +254,7 @@ const DonarSignup = () => {
 
                 <select
                   name="district"
-                  className="select w-full bg-gray-200 text-gray-900"
+                  className=" select input-field"
                   {...register("district", {
                     required: true,
                   })}
@@ -286,7 +287,7 @@ const DonarSignup = () => {
                 <input
                   type="text"
                   placeholder="Enter Your Area"
-                  className="w-full input bg-gray-200 text-gray-900"
+                  className="input-field"
                   {...register("area", {
                     required: true,
                   })}
@@ -302,13 +303,15 @@ const DonarSignup = () => {
                 <input
                   type="date"
                   placeholder="Enter Your Area"
-                  className="w-full input bg-gray-200 text-gray-900"
-                  {...register("date",{
+                  className="input-field"
+                  {...register("date", {
                     required: true,
                   })}
                 />
-                 {errors.date?.type === "required" && (
-                  <span className="text-rose-500">Please enter Last Donation Date</span>
+                {errors.date?.type === "required" && (
+                  <span className="text-rose-500">
+                    Please enter Last Donation Date
+                  </span>
                 )}
               </div>
               <div className="w-full">
@@ -317,41 +320,26 @@ const DonarSignup = () => {
                 </label>
                 <input
                   type="file"
-                  className="w-full input bg-gray-200 text-gray-900"
+                  className="input-field"
                   {...register("image")}
                 />
               </div>
             </div>
             <div className="py-3">
-              <button
-                type="submit"
-                className="w-full py-2  px-10 cursor-pointer bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white"
-              >
+              <button type="submit" className="w-full newBTN">
                 {btnLoading ? (
                   <div className="flex justify-center">
-                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>
-                  </div>
+                  <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>Loading...
+                </div>
                 ) : (
                   "Create Account"
                 )}
               </button>
             </div>
           </form>
-          {/* <div className="flex items-center py-2">
-            <div className="w-full h-[1px]  bg-gray-500"></div>
-            <div className="mx-3">Or</div>
-            <div className="w-full h-[1px] bg-gray-500"></div>
-          </div>
-          <div
-            onClick={LoginWithGoogle}
-            className="flex justify-center items-center space-x-2 border m-3 p-2  border-gray-500 cursor-pointer"
-          >
-            <FcGoogle size={32} />
-
-            <p>Continue with Google</p>
-          </div> */}
           <p className="px-6 text-center text-gray-400">
-            Already have an account? <Link
+            Already have an account?
+            <Link
               to="/login"
               className="hover:underline hover:text-rose-500 text-gray-600"
             >
@@ -361,7 +349,7 @@ const DonarSignup = () => {
           </p>
         </div>
       </div>
-      <Toaster/>
+      <Toaster />
     </>
   );
 };

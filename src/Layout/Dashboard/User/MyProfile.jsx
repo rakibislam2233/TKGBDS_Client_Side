@@ -1,10 +1,12 @@
 import axios from "axios";
-import {useRef, useState } from "react";
+import moment from "moment";
+import { useRef, useState } from "react";
 import { HiPencilSquare } from "react-icons/hi2";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import Loading from "../../../Component/Pages/Shared/Loading";
-import toast from "react-hot-toast";
-import useSingleDonar from "../../../hook/useSingleDonar";
 import useUser from "../../../hook/UseUser";
+import useSingleDonar from "../../../hook/useSingleDonar";
 const MyProfile = () => {
   const [user] = useUser()
   const [singelDonar,isLoading,refetch] = useSingleDonar()
@@ -12,6 +14,7 @@ const MyProfile = () => {
   const emailRef = useRef();
   const phoneNumberRef = useRef();
   const bloodGroupRef = useRef();
+  const dateRef = useRef()
   const [disable, setDisable] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const handleSubmit = (e) => {
@@ -20,16 +23,25 @@ const MyProfile = () => {
     const email = emailRef.current?.value;
     const phoneNumber = phoneNumberRef.current?.value;
     const bloodGroup = bloodGroupRef.current?.value;
-    const updateInfo = { fullName, email, phoneNumber, bloodGroup };
-    axios.put(`http://localhost:5000/donar/${user?.email}`,updateInfo)
+    const date = dateRef.current?.value;
+    const formattedDate = moment(date).format("DD MMM YYYY");
+    const updateInfo = { name : fullName, email, phoneNumber, bloodGroup , date: formattedDate};
+    axios.put(`https://tkgbds-server-side.vercel.app/donar/${user?.email}`,updateInfo)
     .then(res=>{
       if(res.data.modifiedCount>0){
-        toast.success("Information updated successfully")
+        console.log(res.data)
+        Swal.fire({
+          position: 'top-center',
+          icon: 'success',
+          title: 'Information updated successfully',
+          showConfirmButton: false,
+          timer: 1500
+        })
         refetch()
         setIsOpen(false)
       }
     })
-    .catch(err => toast.error(err.message));
+    .catch(err => console.log(err.message));
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -37,9 +49,10 @@ const MyProfile = () => {
     const email = emailRef.current?.value;
     const phoneNumber = phoneNumberRef.current?.value;
     const bloodGroup = bloodGroupRef.current?.value;
+    const date = dateRef.current?.value;
     if (e.target.value) {
       setDisable(true);
-      if(fullName === singelDonar.name && email === singelDonar.email && phoneNumber === singelDonar.phoneNumber && bloodGroup === singelDonar.bloodGroup){
+      if(fullName === singelDonar.name && email === singelDonar.email && phoneNumber === singelDonar.phoneNumber && bloodGroup === singelDonar.bloodGroup && date === singelDonar.date){
         setDisable(false);
       }
     }
@@ -48,7 +61,7 @@ const MyProfile = () => {
   return (
     <>
     {
-      isLoading? <Loading/> : <div className="w-full p-5">
+      isLoading ? <Loading/> : <div className="w-full p-5">
       <div className="flex justify-between items-center">
         <h3 className="text-3xl font-semibold">My Profile</h3>
         <button
@@ -67,7 +80,6 @@ const MyProfile = () => {
               src={singelDonar?.imageUrl}
               alt=""
             />
-            <input type="file" name="" id="" />
           </div>
           <div className="col-span-12 md:col-span-9">
             <form onSubmit={handleSubmit} className="space-y-2">
@@ -96,7 +108,7 @@ const MyProfile = () => {
                   className="w-full input bg-gray-200 text-gray-900"
                 />
               </div>
-              {singelDonar?.status === "donar" && <> <div className="flex flex-col gap-2">
+              {singelDonar?.role === "donar" && <> <div className="flex flex-col gap-2">
                 <label htmlFor="phoneNumber">Phone Number</label>
                 <input
                   type="number"
@@ -122,19 +134,32 @@ const MyProfile = () => {
                   className="w-full input bg-gray-200 text-gray-900"
                 />
               </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="date">Last Donation Date</label>
+                <input
+                  type="date"
+                  ref={dateRef}
+                  defaultValue={singelDonar?.date}
+                  onChange={handleChange}
+                  name="date"
+                  required
+                  id="date"
+                  className="w-full input bg-gray-200 text-gray-900"
+                />
+              </div>
               </>
               }
              
               <div className="flex justify-end py-3 gap-4">
               <button
               onClick={()=>setIsOpen(false)}
-                    className={`py-2 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white`}
+                    className={`newBTN`}
                   >
                     Cancle
                   </button>
                 {disable ? (
                   <button
-                    className={`py-2 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white`}
+                    className="newBTN"
                   >
                     Update
                   </button>
@@ -158,11 +183,13 @@ const MyProfile = () => {
               src={singelDonar?.imageUrl}
               alt=""
             />
-            {singelDonar.status !== "donar" && (
+            {singelDonar.role !== "donar" && (
               <div className="flex justify-center items-center">
+                <Link to={'/become-a-donar'}>
                 <button className="py-2  px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white  gap-1">
                 Become a Donar
               </button>
+              </Link>
               </div>
             )}
           </div>
@@ -185,6 +212,12 @@ const MyProfile = () => {
               <div>
                 <h3 className="text-xl font-semibold">Blood Group</h3>
                 <h2>{singelDonar.bloodGroup}</h2>
+              </div>
+            )}
+            {singelDonar.date && (
+              <div>
+                <h3 className="text-xl font-semibold">Last Donation Date</h3>
+                <h2>{singelDonar?.date}</h2>
               </div>
             )}
           </div>

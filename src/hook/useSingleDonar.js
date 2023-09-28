@@ -1,7 +1,7 @@
 
-import useUser from "./UseUser";
 import axios from "axios";
 import { useQuery } from "react-query";
+import useUser from "./UseUser";
 
  const useSingleDonar = () =>{
     const [user] = useUser();
@@ -9,7 +9,8 @@ import { useQuery } from "react-query";
       queryKey: ["singleDonar", user?.email],
       enabled: user?.email !== '',
       queryFn: async () => {
-        const res = await axios(`http://localhost:5000/get-one-user/${user?.email}`);
+        const res = await axios(`https://tkgbds-server-side.vercel.app/get-one-user/${user?.email}`);
+        console.log(res.data)
         return res.data;
   
       },

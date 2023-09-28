@@ -1,13 +1,13 @@
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
-import slider2 from "../../../../assets/Banner/slider2.jpg";
-import slider1 from "../../../../assets/Banner/slider7.jpg";
-import image2 from "../../../../assets/Banner/banner2.jpg";
-import image3 from "../../../../assets/Banner/Banner3.jpg";
-import blood from "../../../../assets/Lottifiles/animation_lmt2e0ae.json";
-import blood2 from "../../../../assets/Lottifiles/animation_lmt2e8hg.json";
-import blood3 from "../../../../assets/Lottifiles/animation_lmt2hpql.json";
-import blood4 from "../../../../assets/Lottifiles/animation_lmt2i80u.json";
+import slider2 from "../../../assets/Banner/slider2.jpg";
+import slider1 from "../../../assets/Banner/slider7.jpg";
+import image2 from "../../../assets/Banner/banner2.jpg";
+import image3 from "../../../assets/Banner/Banner3.jpg";
+import blood from "../../../assets/Lottifiles/animation_lmt2e0ae.json";
+import blood2 from "../../../assets/Lottifiles/animation_lmt2e8hg.json";
+import blood3 from "../../../assets/Lottifiles/animation_lmt2hpql.json";
+import blood4 from "../../../assets/Lottifiles/animation_lmt2i80u.json";
 import SlideComponent from "./SlideComponent";
 const Banner = () => {
   const [sliderRef] = useKeenSlider(

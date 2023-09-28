@@ -1,6 +1,6 @@
-import React from "react";
-import Container from "../../Shared/Container/Container";
-
+import image1 from '../../../assets/Banner/blood Donat.jpg'
+import image2 from '../../../assets/Banner/girls.jpg'
+import image3 from '../../../assets/Banner/worldBlood.jpg'
 const DonationBlood = () => {
   return (
     <div className="py-10 space-y-5 p-5 container mx-auto ">
@@ -40,7 +40,7 @@ const DonationBlood = () => {
         <div className="w-full md:w-1/2">
           <img
             className="w-full  mx-auto"
-            src="/src/assets/Banner/blood Donat.jpg"
+            src={image1}
             alt=""
           />
         </div>
@@ -49,7 +49,7 @@ const DonationBlood = () => {
         <div className="w-full md:w-1/2">
           <img
             className="w-full h-full  mx-auto"
-            src="/src/assets/Banner/girls.jpg"
+            src={image2}
             alt=""
           />
         </div>
@@ -78,9 +78,9 @@ const DonationBlood = () => {
               সমগ্র মানব জাতির জীবন বাঁচানোর মতো মহান কাজ।’
             </h3>
             <h3>
-              ৭. নিজের মাঝে একধরনের আত্মতৃপ্তি উপলব্ধি করতে পারবেন । "আমাদের ছোট
-              পরিসরের এই জীবনে কিছু একটা করলাম" এই অনুভুতি আপনার মনে জাগ্রত হবে
-              এই ব্যাপারে নিশ্চিত করছি :)
+              ৭. নিজের মাঝে একধরনের আত্মতৃপ্তি উপলব্ধি করতে পারবেন । আমাদের ছোট
+              পরিসরের এই জীবনে কিছু একটা করলাম এই অনুভুতি আপনার মনে জাগ্রত হবে
+              এই ব্যাপারে নিশ্চিত করছি 
             </h3>
           </div>
         </div>
@@ -130,7 +130,7 @@ const DonationBlood = () => {
         <div className="w-full md:w-1/2">
           <img
             className="w-full h-full mx-auto"
-            src="/src/assets/Banner/worldBlood.jpg"
+            src={image3}
             alt=""
           />
         </div>

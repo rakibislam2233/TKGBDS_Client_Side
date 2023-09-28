@@ -1,10 +1,10 @@
-import {useRef, useState } from "react";
 import axios from "axios";
+import { useRef, useState } from "react";
 import { HiPencilSquare } from "react-icons/hi2";
+import Swal from "sweetalert2";
 import Loading from "../../../Component/Pages/Shared/Loading";
-import toast from "react-hot-toast";
-import useSingleDonar from "../../../hook/useSingleDonar";
 import useUser from "../../../hook/UseUser";
+import useSingleDonar from "../../../hook/useSingleDonar";
 const Address = () => {
   const [user] = useUser()
   const [isOpen, setIsOpen] = useState(false);
@@ -20,16 +20,21 @@ const Address = () => {
     const area = areaRef.current?.value;
     const updateInfo = { country, district, area };
     axios
-      .put(`http://localhost:5000/donar/${user?.email}`, updateInfo)
+      .put(`https://tkgbds-server-side.vercel.app/donar/${user?.email}`, updateInfo)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
-          toast.success("Information updated successfully");
+          Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Information updated successfully',
+            showConfirmButton: false,
+            timer: 1500
+          })
           refetch()
           setIsOpen(false);
         }
-        console.log(res.data);
       })
-      .catch((err) => toast.error(err.message));
+      .catch((err) => console.log(err.message));
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -142,13 +147,13 @@ const Address = () => {
                     <div className="flex justify-end py-3 gap-4">
                       <button
                         onClick={() => setIsOpen(false)}
-                        className={`py-2 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white`}
+                        className="newBTN"
                       >
                         Cancle
                       </button>
                       {disable ? (
                         <button
-                          className={`py-2 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white`}
+                        className="newBTN"
                         >
                           Update
                         </button>
