@@ -79,7 +79,7 @@ const DonarGallery = () => {
                 <button className="newBTN">
                 {isLoading ? (
                   <div className="flex justify-center">
-                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>
+                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>Loading..
                   </div>
                 ) : (
                   "Submit"

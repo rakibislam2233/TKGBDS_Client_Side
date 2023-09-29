@@ -6,7 +6,7 @@ const Contact = () => {
     <>
       <PageTopBanner title={"Contact"} secoundtitle={"Contact"} />
       <div className="max-w-6xl mx-auto mt-5 overflow-hidden bg-white w-full py-10 p-5 ">
-        <div className="grid items-stretch md:grid-cols-2">
+        <div className="grid items-stretch md:grid-cols-2 gap-10">
           <Lottie
             className="w-full h-full"
             animationData={ContactNow}

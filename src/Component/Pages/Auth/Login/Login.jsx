@@ -32,7 +32,7 @@ const Login = () => {
       })
       .catch((err) => {
         setbtnLoading(false);
-        console.log(err.message);
+        toast.error(err.message)
       });
   };
   const LoginWithGoogle = () => {

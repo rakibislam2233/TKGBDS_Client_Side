@@ -5,21 +5,31 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./Style.css";
+import { useQuery } from "react-query";
 const Gallery = () => {
-  const [images, setImages] = useState([]);
-  useEffect(() => {
-    axios(`https://tkgbds-server-side.up.railway.app/gallery-image`).then((res) => {
-      setImages(res.data);
-    });
-  }, []);
+  const {
+    data: images = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["isAdmin",],
+    queryFn: async () => {
+      const res = await axios(
+        `https://tkgbds-server-side.up.railway.app/gallery-image`
+      );
+      return res.data;
+    },
+  });
   return (
-    <div className="w-full py-5">
+    <div className="w-full py-5 p-5">
       <div className="w-full">
         <div className="text-center space-y-3  pb-8">
-          <h3 className="text-3xl font-semibold text-rose-500">Blood Warrior</h3>
+          <h3 className="text-3xl font-semibold text-rose-500">
+            Blood Warrior
+          </h3>
         </div>
         <Swiper
-         breakpoints={{
+          breakpoints={{
             320: {
               slidesPerView: 1,
               spaceBetween: 10,
@@ -35,8 +45,8 @@ const Gallery = () => {
               spaceBetween: 30,
             },
             1024: {
-              slidesPerView: 3,
-              spaceBetween: 40,
+              slidesPerView: 4,
+              spaceBetween: 30,
             },
           }}
           slidesPerView={3}
@@ -57,7 +67,9 @@ const Gallery = () => {
                     src={image?.imageUrl}
                   />
                   <div className="content-details  flex justify-center">
-                    <h3 className="text-2xl font-semibold text-white">Blood Warrior : {image?.name}</h3>
+                    <h3 className="text-2xl font-semibold text-white">
+                      Blood Warrior : {image?.name}
+                    </h3>
                   </div>
                 </div>
               </div>
