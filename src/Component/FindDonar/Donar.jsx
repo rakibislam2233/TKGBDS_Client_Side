@@ -1,18 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import DonarDetails from "./DonarDetails";
-import Loading from "../Pages/Shared/Loading";
 import { useForm } from "react-hook-form";
-import NoDataFound from "../Pages/Shared/NoDataFound";
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
+import Loading from "../Pages/Shared/Loading";
+import NoDataFound from "../Pages/Shared/NoDataFound";
 import PageTopBanner from "../Pages/Shared/PageTopBanner";
+import DonarDetails from "./DonarDetails";
 const Donar = () => {
   const [donars, setDonars] = useState([]);
   const [donarLoading, setdonarLoading] = useState(true);
   useEffect(() => {
     axios
-      .get(`https://tkgbds-server-side.vercel.app/get-all-donar`)
+      .get(`https://tkgbds-server-side.up.railway.app/get-all-donar`)
       .then((res) => {
         setDonars(res.data);
         setdonarLoading(false);
@@ -26,7 +25,7 @@ const Donar = () => {
     setdonarLoading(true);
     handleClickPrev();
     axios
-      .post(`https://tkgbds-server-side.vercel.app/get-filter`, data)
+      .post(`https://tkgbds-server-side.up.railway.app/get-filter`, data)
       .then((res) => {
         setdonarLoading(false);
         setDonars(res.data);
@@ -60,7 +59,7 @@ const Donar = () => {
           <PageTopBanner title={"Find Donar"} secoundtitle={"Find Donar"} />
           <div className="w-full h-full container mx-auto py-10 p-5 space-y-12">
               <div>
-                <form className="border p-5  border-gray-700 rounded-xl" onSubmit={handleSubmit(onSubmit)}>
+                <form className="border p-5  rounded-xl" onSubmit={handleSubmit(onSubmit)}>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div className="flex flex-col gap-2">
                       <label

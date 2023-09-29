@@ -2,10 +2,19 @@ import { HiMenuAlt3, HiOutlineX } from "react-icons/hi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import NavData from "./NavData";
 import useAdmin from "../../../../hook/useAdmin";
+import { IoIosNotifications } from "react-icons/io";
+import useDonar from "../../../../hook/useDonar";
+import useRequestedBlood from "../../../../hook/useRequestedBlood";
 
 const MobileDevice = ({ navOpen, setNavOpen, user, logOut }) => {
   const naviget = useNavigate();
   const [isAdmin] = useAdmin();
+  const [isDonar] = useDonar();
+  const [requestedBlood] = useRequestedBlood();
+  const notifications = requestedBlood.filter(
+    (notification) => notification.bloodReq === "true"
+  );
+  const data = notifications?.length;
   return (
     <div className="lg:hidden">
       <button className="text-gray-700" onClick={() => setNavOpen(!navOpen)}>
@@ -16,7 +25,7 @@ const MobileDevice = ({ navOpen, setNavOpen, user, logOut }) => {
         )}
       </button>
       {navOpen && (
-        <nav className="absolute left-0 z-50  text-center py-10 top-[80px] w-full bg-gray-500">
+        <nav className="absolute left-0 z-50  text-center py-10 top-[80px] w-full bg-rose-100">
           {user ? (
             <>
               <div className="dropdown dropdown-end ml-20">
@@ -93,13 +102,29 @@ const MobileDevice = ({ navOpen, setNavOpen, user, logOut }) => {
                   className={({ isActive }) =>
                     isActive
                       ? "bg-gradient-to-r from-rose-600 to-pink-500 px-3 rounded py-2 text-white"
-                      : "hover:bg-gradient-to-r from-rose-600 to-pink-500 px-3 rounded py-2 text-white transition-all duration-300"
+                      : "hover:bg-gradient-to-r from-rose-600 to-pink-500 px-3 rounded py-2 transition-all duration-300"
                   }
                 >
                   {nav.title}
                 </NavLink>
               </li>
             ))}
+            <li>
+            <li>
+          {isDonar?.donar && (
+            <div className="relative cursor-pointer">
+              <IoIosNotifications className="w-6 h-6" />
+              {data === 0 ? (
+                ""
+              ) : (
+                <span className="absolute top-[-8px] bg-gradient-to-r from-rose-600 to-pink-500 rounded-full px-1 text-[10px] flex justify-center text-white items-center right-[-2px]">
+                  {data}
+                </span>
+              )}
+            </div>
+          )}
+        </li>
+            </li>
           </ul>
         </nav>
       )}

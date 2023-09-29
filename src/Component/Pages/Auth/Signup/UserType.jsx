@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const signupImage = "/src/assets/SignUp/signup.webp";
-const normalUser = "/src//assets/SignUp/add-group.png";
-const donar = "/src//assets/SignUp/donor.png";
+import signupImage from "../../../../assets/SignUp/signup.webp";
+import normalUser from "../../../../assets/SignUp/add-group.png";
+import donar from "../../../../assets/SignUp/donor.png";
 
 const UserType = () => {
     const [type,setType] = useState('');
@@ -13,7 +13,7 @@ const UserType = () => {
         }else if(type === "normalUser"){
             naviget('/normalUser-register')
         }
-    },[type])
+    },[type,naviget])
   return (
     <div
       style={{

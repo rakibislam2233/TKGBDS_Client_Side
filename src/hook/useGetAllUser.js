@@ -6,7 +6,7 @@ const useGetAllUser = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get(`https://tkgbds-server-side.vercel.app/get-all-user`)
+      .get(`https://tkgbds-server-side.up.railway.app/get-all-user`)
       .then((res) => {
         setAllUser(res.data);
         setLoading(false);

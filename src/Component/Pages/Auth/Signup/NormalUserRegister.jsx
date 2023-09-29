@@ -3,14 +3,15 @@ import { updateProfile } from "firebase/auth";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
 import { ImSpinner9 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
-const signupImage = "/src/assets/SignUp/signup.webp";
+import signupImage from "../../../../assets/SignUp/signup.webp";
 
 const NormalUserRegister = () => {
   const [btnLoading, setbtnLoading] = useState(false);
-  const { createNewUser,} = useContext(UserContext);
+  const { createNewUser,googleLogin} = useContext(UserContext);
   const naviget = useNavigate();
   const {
     register,
@@ -41,9 +42,9 @@ const NormalUserRegister = () => {
               displayName: name,
               photoURL: imageUrl,
             });
-            const userInfo = { name, email, imageUrl, password, role: "user" };
+            const userInfo = { name, email, imageUrl};
             axios
-              .put(`https://tkgbds-server-side.vercel.app/donar/${email}`, userInfo)
+              .put(`https://tkgbds-server-side.up.railway.app/donar/${email}`, userInfo)
               .then((data) => {
                 if (data) {
                   setbtnLoading(false);
@@ -62,43 +63,32 @@ const NormalUserRegister = () => {
           });
       });
   };
-  // const LoginWithGoogle = () => {
-  //   googleLogin()
-  //     .then((result) => {
-  //       const user = result.user;
-  //       const userInfo = {
-  //         name: user.displayName,
-  //         email: user?.email,
-  //         imageUrl: user.photoURL,
-  //       };
-  //       fetch(`https://musicy-server-side.vercel.app/users/${user?.email}`, {
-  //         method: "PUT",
-  //         headers: {
-  //           "content-type": "application/json",
-  //         },
-  //         body: JSON.stringify(userInfo),
-  //       })
-  //         .then((res) => res.json())
-  //         .then((data) => {
-  //           Swal.fire({
-  //             position: "center",
-  //             icon: "success",
-  //             title: "Login Successfully",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //           reset();
-  //           naviget("/");
-  //         })
-  //         .catch((err) => {
-  //           console.log(err.message)
-  //         });
-  //     })
-  //     .catch((err) => {
-  //       err.message;
-  //       console.log(err.message)
-  //     });
-  // };
+  const LoginWithGoogle = () => {
+    googleLogin()
+      .then((result) => {
+        const user = result.user;
+        const userInfo = {
+          name: user.displayName,
+          email: user?.email,
+          imageUrl: user.photoURL,
+        };
+        console.log(userInfo)
+        axios.put(`https://tkgbds-server-side.up.railway.app/donar/${user?.email}`, userInfo)
+          .then((data) => {
+            if (data) {
+              setbtnLoading(false);
+              naviget('/');
+            }
+          })
+          .catch((err) => {
+            setbtnLoading(false);
+            toast.error(err.message);
+          });
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
   return (
     <>
       <div
@@ -211,6 +201,19 @@ const NormalUserRegister = () => {
                 </button>
               </div>
             </form>
+            <div className="flex items-center py-2">
+            <div className="w-full h-[1px]  bg-gray-500"></div>
+            <div className="mx-3">Or</div>
+            <div className="w-full h-[1px] bg-gray-500"></div>
+          </div>
+          <div
+            onClick={LoginWithGoogle}
+            className="flex justify-center items-center space-x-2 border m-3 p-2  border-gray-500 cursor-pointer"
+          >
+            <FcGoogle size={32} />
+
+            <p>Continue with Google</p>
+          </div>
             <p className="px-6 text-center text-gray-400">
               Already have an account?{" "}
               <Link

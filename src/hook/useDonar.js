@@ -12,7 +12,7 @@ const useDonar = () => {
     queryKey: ["isDonar", user?.email],
     enabled: user?.email !== "",
     queryFn: async () => {
-      const res = await axios(`https://tkgbds-server-side.vercel.app/isDonar/${user?.email}`);
+      const res = await axios(`https://tkgbds-server-side.up.railway.app/isDonar/${user?.email}`);
       return res.data;
     },
   });

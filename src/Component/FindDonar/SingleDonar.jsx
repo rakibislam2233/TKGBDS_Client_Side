@@ -12,7 +12,7 @@ const SingleDonar = () => {
   const [singleDonarLoading, setsingleDonarLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
-    axios(`https://tkgbds-server-side.vercel.app/get-single-donar-byId/${id}`)
+    axios(`https://tkgbds-server-side.up.railway.app/get-single-donar-byId/${id}`)
       .then((res) => {
         setsingleDonar(res.data);
         setsingleDonarLoading(false);

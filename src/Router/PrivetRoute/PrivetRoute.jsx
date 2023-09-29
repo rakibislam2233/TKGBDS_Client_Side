@@ -2,14 +2,12 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../Provider/AuthProvider/AuthProvider";
+import Loading from "../../Component/Pages/Shared/Loading";
 const PrivetRoute = ({ children }) => {
   const { user, loading } = useContext(UserContext);
   const location = useLocation();
   if (loading) {
-    return (
-      <div className="w-full h-80 flex justify-center items-center">
-      </div>
-    );
+    return <Loading/>;
   }
   if (user) {
     return children;

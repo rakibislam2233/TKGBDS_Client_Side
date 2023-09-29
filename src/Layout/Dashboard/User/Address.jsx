@@ -20,7 +20,7 @@ const Address = () => {
     const area = areaRef.current?.value;
     const updateInfo = { country, district, area };
     axios
-      .put(`https://tkgbds-server-side.vercel.app/donar/${user?.email}`, updateInfo)
+      .put(`https://tkgbds-server-side.up.railway.app/donar/${user?.email}`, updateInfo)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           Swal.fire({

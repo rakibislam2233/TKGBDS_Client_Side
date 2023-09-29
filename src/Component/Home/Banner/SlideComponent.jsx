@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-const SlideComponent = ({ image, animation }) => {
+const SlideComponent = ({image, animation }) => {
   return (
     <div
       style={{
@@ -12,7 +12,7 @@ const SlideComponent = ({ image, animation }) => {
       <div className="w-full mx-auto h-full grid grid-cols-1 lg:grid-cols-2 gap-5 p-10">
         <div className="  flex justify-center items-center">
             <div className="space-y-4 ">
-              <h3 className="text-xl -tracking-tight font-semibold  py-3 text-rose-700">
+            <h3 className="text-xl -tracking-tight font-semibold  py-3 text-rose-700">
                 Share the Gift of Life, Donate Blood
               </h3>
               <h2 className="text-5xl md:text-6xl tracking-widest leading-tight font-bold text-white">

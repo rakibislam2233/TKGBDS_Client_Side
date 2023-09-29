@@ -9,7 +9,7 @@ import useUser from "./UseUser";
       queryKey: ["singleDonar", user?.email],
       enabled: user?.email !== '',
       queryFn: async () => {
-        const res = await axios(`https://tkgbds-server-side.vercel.app/get-one-user/${user?.email}`);
+        const res = await axios(`https://tkgbds-server-side.up.railway.app/get-one-user/${user?.email}`);
         console.log(res.data)
         return res.data;
   

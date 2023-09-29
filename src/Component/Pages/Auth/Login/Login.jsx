@@ -1,16 +1,17 @@
-import { FcGoogle } from "react-icons/fc";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import axios from "axios";
 import { useContext, useState } from "react";
-import { ImSpinner9 } from "react-icons/im";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
+import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-const signupImage = "/src/assets/SignUp/signup.webp";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+import { ImSpinner9 } from "react-icons/im";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
+import signupImage from "../../../../assets/SignUp/signup.webp";
 const Login = () => {
   const [hide, setHide] = useState(false);
-  const [btnLoading,setbtnLoading] = useState(false);
-  const { login, googleLogin, loading } = useContext(UserContext);
+  const [btnLoading, setbtnLoading] = useState(false);
+  const { login, googleLogin, } = useContext(UserContext);
   const location = useLocation();
   const naviget = useNavigate();
   const from = location?.state?.from.pathname || "/";
@@ -21,57 +22,45 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    setbtnLoading(true)
+    setbtnLoading(true);
     const { email, password } = data;
     login(email, password)
       .then((result) => {
-        const user = result.user;
-        setbtnLoading(false)
+        setbtnLoading(false);
         reset();
         naviget(from, { replace: true });
       })
       .catch((err) => {
-        setbtnLoading(false)
-        console.log(err.message)
+        setbtnLoading(false);
+        console.log(err.message);
       });
   };
-  // const LoginWithGoogle = () => {
-  //   googleLogin()
-  //     .then((result) => {
-  //       const user = result.user;
-  //       const userInfo = {
-  //         name: user.displayName,
-  //         email: user?.email,
-  //         imageUrl: user.photoURL,
-  //       };
-  //       fetch(`https://musicy-server-side.vercel.app/users/${user?.email}`, {
-  //         method: "PUT",
-  //         headers: {
-  //           "content-type": "application/json",
-  //         },
-  //         body: JSON.stringify(userInfo),
-  //       })
-  //         .then((res) => res.json())
-  //         .then((data) => {
-  //           Swal.fire({
-  //             position: "center",
-  //             icon: "success",
-  //             title: "Login Successfully",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //           reset();
-  //           naviget(from, { replace: true });
-  //         })
-  //         .catch((err) => {
-  //           console.log(err.message)
-  //         });
-  //     })
-  //     .catch((err) => {
-  //       err.message;
-  //       console.log(err.message)
-  //     });
-  // };
+  const LoginWithGoogle = () => {
+    googleLogin()
+      .then((result) => {
+        const user = result.user;
+        const userInfo = {
+          name: user.displayName,
+          email: user?.email,
+          imageUrl: user.photoURL,
+        };
+        console.log(userInfo)
+        axios.put(`https://tkgbds-server-side.up.railway.app/donar/${user?.email}`, userInfo)
+          .then((data) => {
+            if (data) {
+              setbtnLoading(false);
+              naviget(from, { replace: true });
+            }
+          })
+          .catch((err) => {
+            setbtnLoading(false);
+            toast.error(err.message);
+          });
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  };
   return (
     <>
       <div
@@ -145,13 +134,11 @@ const Login = () => {
               </div>
             </div>
             <div className="py-3">
-              <button
-                type="submit"
-                className="w-full newBTN"
-              >
+              <button type="submit" className="w-full newBTN">
                 {btnLoading ? (
                   <div className="flex justify-center">
-                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>Loading...
+                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>
+                    Loading...
                   </div>
                 ) : (
                   "Login"
@@ -159,7 +146,7 @@ const Login = () => {
               </button>
             </div>
           </form>
-          {/* <div className="flex items-center py-2">
+          <div className="flex items-center py-2">
             <div className="w-full h-[1px]  bg-gray-500"></div>
             <div className="mx-3">Or</div>
             <div className="w-full h-[1px] bg-gray-500"></div>
@@ -171,9 +158,10 @@ const Login = () => {
             <FcGoogle size={32} />
 
             <p>Continue with Google</p>
-          </div> */}
+          </div>
           <h3 className="px-6  text-center  text-gray-400">
-            {`Don't have an account?`}  <Link
+            {`Don't have an account?`}{" "}
+            <Link
               to="/userType"
               className="hover:underline hover:text-rose-500 text-gray-600"
             >
@@ -182,7 +170,7 @@ const Login = () => {
             .
           </h3>
         </div>
-      <Toaster/>
+        <Toaster />
       </div>
     </>
   );

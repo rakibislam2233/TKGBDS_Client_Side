@@ -26,7 +26,7 @@ const MyProfile = () => {
     const date = dateRef.current?.value;
     const formattedDate = moment(date).format("DD MMM YYYY");
     const updateInfo = { name : fullName, email, phoneNumber, bloodGroup , date: formattedDate};
-    axios.put(`https://tkgbds-server-side.vercel.app/donar/${user?.email}`,updateInfo)
+    axios.put(`https://tkgbds-server-side.up.railway.app/donar/${user?.email}`,updateInfo)
     .then(res=>{
       if(res.data.modifiedCount>0){
         console.log(res.data)

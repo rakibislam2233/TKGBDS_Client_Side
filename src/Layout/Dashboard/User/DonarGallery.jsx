@@ -26,7 +26,7 @@ const DonarGallery = () => {
       .then((imageData) => {
         const imageUrl = imageData.data.display_url;
         const galleryImage = {name,imageUrl}
-        axios.post(`https://tkgbds-server-side.vercel.app/post-gallery-image`,galleryImage)
+        axios.post(`https://tkgbds-server-side.up.railway.app/post-gallery-image`,galleryImage)
         .then(res=>{
           console.log(res.data)
           if(res.data.insertedId){

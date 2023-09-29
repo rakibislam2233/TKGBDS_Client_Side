@@ -31,8 +31,9 @@ const BecomeADonar = () => {
       role: "donar",
     };
     axios
-      .put(`https://tkgbds-server-side.vercel.app/donar/${user?.email}`, becomeDonar)
+      .put(`https://tkgbds-server-side.up.railway.app/donar/${user?.email}`, becomeDonar)
       .then((res) => {
+        console.log(res.data)
         if (res.data.modifiedCount > 0) {
           Swal.fire({
             position: "top-center",

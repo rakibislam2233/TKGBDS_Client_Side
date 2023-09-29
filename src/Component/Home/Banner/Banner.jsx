@@ -52,10 +52,10 @@ const Banner = () => {
           <SlideComponent image={slider1} animation={blood}/>
         </div>
         <div className="keen-slider__slide number-slide1">
-        <SlideComponent image={slider2} animation={blood2}/>
+        <SlideComponent  image={slider2} animation={blood2}/>
         </div>
         <div className="keen-slider__slide number-slide1">
-        <SlideComponent image={image2} animation={blood3}/>
+        <SlideComponent  image={image2} animation={blood3}/>
         </div>
         <div className="keen-slider__slide number-slide1">
         <SlideComponent image={image3} animation={blood4}/>

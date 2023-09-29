@@ -6,12 +6,14 @@ import { Toaster } from "react-hot-toast";
 
 const Main = () => {
   return (
-    <div className="w-full bg-white overflow-hidden relative">
-      <Navigation></Navigation>
-      <Outlet></Outlet>
-      <Footer></Footer>
-      <Toaster />
-    </div>
+    <>
+      <div className="w-full bg-white overflow-hidden relative">
+          <Navigation></Navigation>
+          <Outlet></Outlet>
+          <Footer></Footer>
+          <Toaster />
+        </div>
+    </>
   );
 };
 

@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import  { useState } from "react";
 import Logo from "./Logo";
 import NavLink from "./NavigationLink";
 import MenuDropdown from "./MenuDropdown";
-import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
 import MobileDevice from "./MobileDevice";
+import { useContext } from "react";
+import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
 
 const Navigation = () => {
   const [navOpen, setNavOpen] = useState(false);

@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import ErrorPages from "../../Component/ErrorPages/ErrorPages";
 import SingleDonar from "../../Component/FindDonar/SingleDonar";
 import Login from "../../Component/Pages/Auth/Login/Login";
 import DonarSignup from "../../Component/Pages/Auth/Signup/DonarSignup";
@@ -19,12 +18,14 @@ import AboutPage from "../../Page/AboutPage";
 import FindDonar from "../../Page/FindDonar";
 import HomePage from "../../Page/HomePage";
 import Contact from "../../Component/Contact/Contact";
+import PrivetRoute from "../PrivetRoute/PrivetRoute";
+import Errorpage from "../../Component/Pages/Shared/Errorpage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
-    errorElement: <ErrorPages></ErrorPages>,
+    errorElement: <Errorpage/>,
     children: [
       {
         path: "/",
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
       ,
       {
         path:'/singleDonar/:id',
-        element:<SingleDonar/>
+        element:<PrivetRoute><SingleDonar/></PrivetRoute>
       }
       ,
       {
@@ -59,9 +60,6 @@ const router = createBrowserRouter([
   {
     path:'signup',
     element:<NormalUserRegister></NormalUserRegister>,
-    children:[
-      
-    ]
   }
   ,
   {
@@ -84,7 +82,7 @@ const router = createBrowserRouter([
   {
     path:'/dashboard',
     element:<Dashboard/>,
-    errorElement:<>Error</>,
+    errorElement:<Errorpage/>,
     children:[
       // Amdin routes start
       {

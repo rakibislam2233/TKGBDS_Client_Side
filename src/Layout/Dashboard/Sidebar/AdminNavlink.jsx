@@ -1,6 +1,7 @@
 import { SlLocationPin } from "react-icons/sl";
 import { AiOutlineUser } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
+import { HiOutlineUsers } from "react-icons/hi";
 const AdminNavlink = () => {
   return (
     <ul className="flex flex-col gap-2  text-gray-700">
@@ -25,7 +26,7 @@ const AdminNavlink = () => {
               : "py-2  px-5 flex gap-1 items-center  cursor-pointer text-gray-700 "
           }
         >
-          <SlLocationPin className="w-5 h-5"></SlLocationPin> Manage Users
+          <HiOutlineUsers className="w-5 h-5"></HiOutlineUsers> Manage Users
         </NavLink>
       </li>
     </ul>

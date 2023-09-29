@@ -49,12 +49,12 @@ const DisplayModal = ({ isOpen, setIsOpen, singleDonar }) => {
       appliedPersonEmail: user?.email,
       donarEmail: singleDonar?.email,
     }
-    axios.post('https://tkgbds-server-side.vercel.app/send-email-data',sendEmailInfo)
+    axios.post('https://tkgbds-server-side.up.railway.app/send-email-data',sendEmailInfo)
       .then(res => {
          if(res.data.accepted) {
           axios
           .post(
-            `https://tkgbds-server-side.vercel.app/post-applicattionForBlood`,
+            `https://tkgbds-server-side.up.railway.app/post-applicattionForBlood`,
             applicationForBlood
           )
           .then((res) => {
