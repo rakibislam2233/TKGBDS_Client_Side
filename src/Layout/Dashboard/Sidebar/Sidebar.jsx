@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { HiArrowLeftOnRectangle } from "react-icons/hi2";
 import { UserContext } from "../../../Provider/AuthProvider/AuthProvider";
 import AdminNavlink from "./AdminNavlink";
 import { Link } from "react-router-dom";
@@ -7,7 +6,7 @@ import useAdmin from "../../../hook/useAdmin";
 import UserNavlink from "./UserNavlink";
 const Sidebar = () => {
   const { user } = useContext(UserContext);
-  const [isAdmin, isLoading] = useAdmin();
+  const [isAdmin] = useAdmin();
   return (
     <div className="w-full  text-white flex flex-col  items-center gap-10 px-5 py-8 ">
       <div className="pt-10">
@@ -17,9 +16,8 @@ const Sidebar = () => {
 
       <div className="flex justify-center">
         <Link to="/">
-          <button className="py-2  px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white flex items-center gap-1">
+          <button className="py-2  px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded text-white flex items-center gap-1">
             Back to home
-            <HiArrowLeftOnRectangle className="w-5 h-5" />
           </button>
         </Link>
       </div>

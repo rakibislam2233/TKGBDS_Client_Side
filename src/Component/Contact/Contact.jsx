@@ -1,17 +1,18 @@
 import Lottie from "lottie-react";
-import PageTopBanner from "../Pages/Shared/PageTopBanner";
 import ContactNow from "../../assets/Contact/contact.json";
+import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 const Contact = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
-      <PageTopBanner title={"Contact"} secoundtitle={"Contact"} />
-      <div className="max-w-6xl mx-auto mt-5 overflow-hidden bg-white w-full py-10 p-5 ">
+    <Helmet>
+        <title>Contact | TKGBDS </title>
+      </Helmet>
+      <div className="max-w-6xl mx-auto mt-5 overflow-hidden bg-white w-full py-10 p-5 z-40">
         <div className="grid items-stretch md:grid-cols-2 gap-10">
-          <Lottie
-            className="w-full h-full"
-            animationData={ContactNow}
-            loop={true}
-          />
           <div>
             <div className="p-10 border rounded-2xl">
               <h3 className="text-2xl pb-5 font-semibold text-black">
@@ -70,6 +71,11 @@ const Contact = () => {
               </div>
             </div>
           </div>
+          <Lottie
+            className="w-full h-full"
+            animationData={ContactNow}
+            loop={true}
+          />
         </div>
       </div>
     </>

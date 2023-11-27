@@ -3,7 +3,6 @@ import { updateProfile } from "firebase/auth";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { FcGoogle } from "react-icons/fc";
 import { ImSpinner9 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
@@ -11,7 +10,7 @@ import signupImage from "../../../../assets/SignUp/signup.webp";
 
 const NormalUserRegister = () => {
   const [btnLoading, setbtnLoading] = useState(false);
-  const { createNewUser,googleLogin} = useContext(UserContext);
+  const { createNewUser} = useContext(UserContext);
   const naviget = useNavigate();
   const {
     register,
@@ -24,9 +23,7 @@ const NormalUserRegister = () => {
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
-    const url = `https://api.imgbb.com/1/upload?key=${
-      import.meta.env.VITE_IMGBB_KEY
-    }`;
+    const url = `https://api.imgbb.com/1/upload?key=9d44eaf618447b8f95c8ff98785d99c3`;
     fetch(url, {
       method: "POST",
       body: formData,
@@ -63,35 +60,9 @@ const NormalUserRegister = () => {
           });
       });
   };
-  const LoginWithGoogle = () => {
-    googleLogin()
-      .then((result) => {
-        const user = result.user;
-        const userInfo = {
-          name: user.displayName,
-          email: user?.email,
-          imageUrl: user.photoURL,
-        };
-        console.log(userInfo)
-        axios.put(`https://tkgbds-server-side.up.railway.app/donar/${user?.email}`, userInfo)
-          .then((data) => {
-            if (data) {
-              setbtnLoading(false);
-              naviget('/');
-            }
-          })
-          .catch((err) => {
-            setbtnLoading(false);
-            toast.error(err.message);
-          });
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
-  };
   return (
     <>
-      <div
+       <div
         style={{
           backgroundImage: `url(${signupImage})`,
           backgroundPosition: "top center",
@@ -99,13 +70,12 @@ const NormalUserRegister = () => {
           backgroundRepeat: "no-repeat",
           backgroundBlendMode: "multiply",
         }}
-        className="w-full h-screen md:h-full  flex justify-center items-center text-gray-700 p-5"
+        className="w-full  flex justify-center items-center text-gray-700 p-8"
       >
-        <div className="flex justify-center items-center my-5 p-5">
-          <div className="w-full max-w-[500px] p-6 rounded-2xl sm:p-10 bg-gray-100 text-gray-900">
-            <h2 className="text-2xl font-bold text-center py-2">
-              আপনার TKGBDS অ্যাকাউন্ট তৈরি করুন
-            </h2>
+        <div className="w-full max-w-[600px] p-6 rounded-2xl sm:p-10 bg-gray-100 text-gray-900">
+          <h2 className="text-2xl font-bold text-center py-2">
+            Create Your TKBDS Account
+          </h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
               <div className="space-y-4">
                 <div className="w-full">
@@ -116,7 +86,11 @@ const NormalUserRegister = () => {
                     type="text"
                     placeholder="Enter Your Name"
                     {...register("name", { required: true })}
-                    className="input-field"
+                    className={`w-full outline-none border ${
+                      errors.name
+                        ? "focus:border-rose-500"
+                        : "focus:border-green-500"
+                    }  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                   />
                   {errors.name && (
                     <span className="text-rose-500">
@@ -132,7 +106,11 @@ const NormalUserRegister = () => {
                     type="email"
                     {...register("email", { required: true })}
                     placeholder="Enter Your Email"
-                    className="input-field"
+                    className={`w-full outline-none border ${
+                      errors.email
+                        ? "focus:border-rose-500"
+                        : "focus:border-green-500"
+                    }  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                   />
                   {errors.email && (
                     <span className="text-rose-500">
@@ -147,7 +125,13 @@ const NormalUserRegister = () => {
                   <input
                     type="password"
                     placeholder="********"
-                    className="input-field"
+                    className={`w-full outline-none border ${
+                      errors.password?.type === "required" ||
+                      errors.password?.type === "minLength" ||
+                      errors.password?.type === "maxLength"
+                        ? "focus:border-rose-500"
+                        : "focus:border-green-500"
+                    }  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                     {...register("password", {
                       required: true,
                       minLength: 6,
@@ -201,19 +185,6 @@ const NormalUserRegister = () => {
                 </button>
               </div>
             </form>
-            <div className="flex items-center py-2">
-            <div className="w-full h-[1px]  bg-gray-500"></div>
-            <div className="mx-3">Or</div>
-            <div className="w-full h-[1px] bg-gray-500"></div>
-          </div>
-          <div
-            onClick={LoginWithGoogle}
-            className="flex justify-center items-center space-x-2 border m-3 p-2  border-gray-500 cursor-pointer"
-          >
-            <FcGoogle size={32} />
-
-            <p>Continue with Google</p>
-          </div>
             <p className="px-6 text-center text-gray-400">
               Already have an account?{" "}
               <Link
@@ -226,7 +197,6 @@ const NormalUserRegister = () => {
             </p>
           </div>
         </div>
-      </div>
 
       <Toaster />
     </>

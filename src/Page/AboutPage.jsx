@@ -1,11 +1,13 @@
+import { Helmet } from "react-helmet-async";
 import BloodType from "../Component/About/BloodType/BloodType";
 import DonationBlood from "../Component/About/DonationBlood/DonationBlood";
-import PageTopBanner from "../Component/Pages/Shared/PageTopBanner";
 
 const AboutPage = () => {
   return (
     <>
-      <PageTopBanner title={"About"} secoundtitle={"About"} />
+      <Helmet>
+        <title>About Blood Donation | TKGBDS </title>
+      </Helmet>
       <DonationBlood />
       <BloodType />
     </>

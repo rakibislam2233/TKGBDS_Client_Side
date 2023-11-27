@@ -1,16 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "./Style.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './Style.css'
 import { useQuery } from "react-query";
 const Gallery = () => {
   const {
     data: images = [],
-    isLoading,
-    refetch,
   } = useQuery({
     queryKey: ["isAdmin",],
     queryFn: async () => {
@@ -20,6 +16,51 @@ const Gallery = () => {
       return res.data;
     },
   });
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows:false,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 820,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+  console.log(images)
   return (
     <div className="w-full py-5 p-5">
       <div className="w-full">
@@ -28,54 +69,24 @@ const Gallery = () => {
             Blood Warrior
           </h3>
         </div>
-        <Swiper
-          breakpoints={{
-            320: {
-              slidesPerView: 1,
-              spaceBetween: 10,
-            },
-            // When window width is >= 480px
-            480: {
-              slidesPerView: 1,
-              spaceBetween: 20,
-            },
-            // When window width is >= 768px
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 30,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 30,
-            },
-          }}
-          slidesPerView={3}
-          spaceBetween={30}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination]}
-          className="rounded-2xl mySwiper"
-        >
-          {images.map((image, i) => (
-            <SwiperSlide key={i + 1}>
-              <div key={i} className="relative cursor-pointer  rounded-2xl">
-                <div className="content">
-                  <div className="content-overlay bg-gradient-to-r from-rose-600 to-pink-500 "></div>
-                  <img
-                    className="w-full h-96  rounded-2xl"
-                    src={image?.imageUrl}
-                  />
-                  <div className="content-details  flex justify-center">
-                    <h3 className="text-2xl font-semibold text-white">
-                      Blood Warrior : {image?.name}
-                    </h3>
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <Slider className='py-5' {...settings}>
+        {
+          images?.map((image,i) =><div key={i} className="relative cursor-pointer  rounded">
+          <div className="content">
+            <div className="content-overlay bg-gradient-to-r from-rose-600 to-pink-500 "></div>
+            <img
+              className="w-full h-72  rounded-2xl"
+              src={image?.imageUrl}
+            />
+            <div className="content-details  flex justify-center">
+              <h3 className="text-2xl font-semibold text-white">
+                {image?.name} <br /> <br /> <span className="text-3xl font-semibold">{image?.bloodGroup}</span>
+              </h3>
+            </div>
+          </div>
+        </div>)
+        }
+      </Slider>
       </div>
     </div>
   );

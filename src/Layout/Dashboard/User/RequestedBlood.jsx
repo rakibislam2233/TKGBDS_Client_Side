@@ -5,6 +5,7 @@ import Loading from "../../../Component/Pages/Shared/Loading";
 import NoDataFound from "../../../Component/Pages/Shared/NoDataFound";
 import useUser from "../../../hook/UseUser";
 import useRequestedBlood from "../../../hook/useRequestedBlood";
+import { Helmet } from "react-helmet-async";
 
 const RequestedBlood = () => {
   const [requestedBlood, isLoading, refetch] = useRequestedBlood();
@@ -20,22 +21,25 @@ const RequestedBlood = () => {
       confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
-        updateLastBdDDate()
+        updateLastBdDDate();
         axios
-          .put(`https://tkgbds-server-side.up.railway.app/request-blood-update/${id}`, {
-            status: "approved",
-            bloodReq: "false",
-          })
+          .put(
+            `https://tkgbds-server-side.up.railway.app/request-blood-update/${id}`,
+            {
+              status: "approved",
+              bloodReq: "false",
+            }
+          )
           .then((res) => {
-            console.log(res.data)
+            console.log(res.data);
             if (res.data.modifiedCount > 0) {
               Swal.fire({
-                position: 'top-center',
-                icon: 'success',
-                title: 'Update Succefully',
+                position: "top-center",
+                icon: "success",
+                title: "Update Succefully",
                 showConfirmButton: false,
-                timer: 1500
-              })
+                timer: 1500,
+              });
               refetch();
             }
           })
@@ -67,6 +71,9 @@ const RequestedBlood = () => {
             <NoDataFound />
           ) : (
             <>
+              <Helmet>
+                <title>Requested Blood | TKGBDS </title>
+              </Helmet>
               <h3 className="text-3xl font-semibold">Requested Blood</h3>
               <div className="overflow-x-auto py-5">
                 <table className="table">
@@ -94,7 +101,7 @@ const RequestedBlood = () => {
                         <th>
                           {applied?.status === "pending" ? (
                             <button
-                              onClick={()=>updateStatus(applied?._id)}
+                              onClick={() => updateStatus(applied?._id)}
                               className="btn btn-xs btn-secondary"
                             >
                               {applied?.status}

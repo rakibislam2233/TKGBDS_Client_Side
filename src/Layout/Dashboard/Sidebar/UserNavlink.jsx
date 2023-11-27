@@ -3,6 +3,7 @@ import { SlLocationPin } from "react-icons/sl";
 import { AiOutlineUser } from "react-icons/ai";
 import { BiDonateBlood } from "react-icons/bi";
 import { IoImageOutline } from "react-icons/io5";
+import { VscFeedback } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
 import useDonar from "../../../hook/useDonar";
 const UserNavlink = () => {
@@ -72,6 +73,18 @@ const UserNavlink = () => {
               <IoImageOutline className="w-4 h-4 "></IoImageOutline> Gallery
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/dashboard/feedback"
+              className={({ isActive }) =>
+                isActive
+                  ? "py-2  px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded text-white flex gap-1 items-center"
+                  : "py-2  px-5 flex gap-2 items-center  cursor-pointer text-gray-700 "
+              }
+            >
+              <VscFeedback className="w-4 h-4 "></VscFeedback> FeedBack
+            </NavLink>
+          </li>
         </>
       ) : (
         <>
@@ -122,6 +135,18 @@ const UserNavlink = () => {
               }
             >
               <IoImageOutline className="w-4 h-4 "></IoImageOutline> Gallery
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/dashboard/feedback"
+              className={({ isActive }) =>
+                isActive
+                  ? "py-2  px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded text-white flex gap-1 items-center"
+                  : "py-2  px-5 flex gap-2 items-center  cursor-pointer text-gray-700 "
+              }
+            >
+              <VscFeedback className="w-4 h-4 "></VscFeedback> FeedBack
             </NavLink>
           </li>
         </>

@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import signupImage from "../../../assets/SignUp/signup.webp";
 import useUser from "../../../hook/UseUser";
+import { Helmet } from "react-helmet-async";
 const BecomeADonar = () => {
+  const [user] = useUser()
+  console.log(user)
   const [isLoading, setIsloading] = useState(false);
-  const [user] = useUser();
   const naviget = useNavigate();
   const {
     register,
@@ -50,6 +52,9 @@ const BecomeADonar = () => {
   };
   return (
     <>
+     <Helmet>
+            <title>Become A Donar | TKGBDS </title>
+          </Helmet>
       <div
         style={{
           backgroundImage: `url(${signupImage})`,
@@ -60,28 +65,30 @@ const BecomeADonar = () => {
         }}
         className="w-full  flex justify-center items-center text-gray-700 p-5"
       >
-        <div className="w-full max-w-[500px] p-6 rounded-2xl sm:p-10 bg-gray-100 text-gray-900">
+        <div className="w-full max-w-[600px] p-6 rounded-2xl sm:p-10 bg-gray-100 text-gray-900">
           <h2 className="text-2xl font-bold text-center py-2">
-            ডোনার হয়ে উঠুন
+           Become A Donar
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <div className="space-y-4">
               <div className="w-full">
-                <label htmlFor="email" className="block mb-2 text-sm">
+                <label htmlFor="name" className="block mb-2 ">
                   Name*
                 </label>
                 <input
                   type="text"
                   placeholder="Enter Your Name"
+                  defaultValue={user?.displayName}
                   {...register("name", { required: true })}
                   className="w-full input bg-gray-200 text-gray-900"
+                  readOnly
                 />
                 {errors.name && (
                   <span className="text-rose-500">Please enter your name</span>
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                <label htmlFor="phoneNumber" className="block mb-2 ">
                   Phone Number*
                 </label>
                 <input
@@ -101,7 +108,7 @@ const BecomeADonar = () => {
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                <label htmlFor="phoneNumber" className="block mb-2 ">
                   Blood Group*
                 </label>
                 <select
@@ -129,7 +136,7 @@ const BecomeADonar = () => {
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                <label htmlFor="phoneNumber" className="block mb-2 ">
                   District*
                 </label>
 
@@ -162,7 +169,7 @@ const BecomeADonar = () => {
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                <label htmlFor="phoneNumber" className="block mb-2 ">
                   Area*
                 </label>
                 <input
@@ -178,7 +185,7 @@ const BecomeADonar = () => {
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                <label htmlFor="phoneNumber" className="block mb-2 ">
                   Last Donation Date
                 </label>
                 <input

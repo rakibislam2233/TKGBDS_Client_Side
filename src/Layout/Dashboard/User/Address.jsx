@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import Loading from "../../../Component/Pages/Shared/Loading";
 import useUser from "../../../hook/UseUser";
 import useSingleDonar from "../../../hook/useSingleDonar";
+import { Helmet } from "react-helmet-async";
 const Address = () => {
   const [user] = useUser()
   const [isOpen, setIsOpen] = useState(false);
@@ -57,6 +58,10 @@ const Address = () => {
       {isLoading ? (
         <Loading />
       ) : (
+       <>
+        <Helmet>
+            <title>Address | TKGBDS </title>
+          </Helmet>
         <div className="w-full p-5">
           <div className="flex justify-between items-center">
             <h3 className="text-3xl font-semibold">Address</h3>
@@ -221,6 +226,7 @@ const Address = () => {
             </div>
           )}
         </div>
+       </>
       )}
     </>
   );

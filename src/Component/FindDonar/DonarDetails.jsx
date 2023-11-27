@@ -1,7 +1,30 @@
-import { Link } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { Link, useNavigate } from "react-router-dom";
 import donarBgimage from "../../assets/Donar/love.jpg";
+import Swal from "sweetalert2";
+import useUser from "../../hook/UseUser";
 const DonarDetails = ({ donar }) => {
-  const lastDate = new Date(donar.date);
+  const [user] = useUser();
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (!user) {
+      Swal.fire({
+        title: "Please login first",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ok",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    } else {
+      navigate(`/singleDonar/${donar._id}`);
+    }
+  };
+  const lastDate = new Date(donar?.date);
   const today = new Date();
   // Calculate the difference in months
   const monthsDifference =
@@ -9,7 +32,7 @@ const DonarDetails = ({ donar }) => {
     (today.getMonth() - lastDate.getMonth());
   return (
     <div className="w-full rounded border hover:shadow-lg">
-      <Link to={`/singleDonar/${donar._id}`}>
+      <Link to={`/singleDonar/${donar?._id}`}>
         <div
           style={{
             backgroundImage: `url(${donarBgimage})`,
@@ -21,7 +44,7 @@ const DonarDetails = ({ donar }) => {
         >
           <img
             className="w-24 h-24 mx-auto rounded-full"
-            src={donar.imageUrl}
+            src={donar?.imageUrl}
             alt="donar-image"
           />
         </div>
@@ -41,11 +64,12 @@ const DonarDetails = ({ donar }) => {
             </div>
           )}
         </>
-        <Link to={`/singleDonar/${donar._id}`}>
-            <button className="py-2 my-5 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white">
-              View Details
-            </button>
-          </Link>
+        <button
+          onClick={() => handleClick()}
+          className="py-2 my-5 px-5 bg-gradient-to-r from-rose-600 to-pink-500 rounded-full text-white"
+        >
+          View Details
+        </button>
       </div>
     </div>
   );

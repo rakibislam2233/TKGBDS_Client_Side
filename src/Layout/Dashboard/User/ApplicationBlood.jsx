@@ -1,8 +1,9 @@
+import { Helmet } from "react-helmet-async";
 import Loading from "../../../Component/Pages/Shared/Loading";
 import NoDataFound from "../../../Component/Pages/Shared/NoDataFound";
 import useApplicationBlood from "../../../hook/useApplicationBlood";
 const ApplicationBlood = () => {
-  const [applicationBlood,isLoading] = useApplicationBlood()
+  const [applicationBlood, isLoading] = useApplicationBlood();
   return (
     <>
       {isLoading ? (
@@ -13,6 +14,9 @@ const ApplicationBlood = () => {
             <NoDataFound />
           ) : (
             <>
+              <Helmet>
+                <title>Application Blood | TKGBDS </title>
+              </Helmet>
               <h3 className="text-3xl font-semibold">Application Blood</h3>
               <div className="overflow-x-auto py-5">
                 <table className="table">
@@ -29,23 +33,21 @@ const ApplicationBlood = () => {
                     </tr>
                   </thead>
                   <tbody className="text-sm">
-                    <tr>
-                      {applicationBlood.map((applied) => (
-                        <>
-                          <th>{applied?.donarName}</th>
-                          <th>{applied?.bloodGroup}</th>
-                          <th>{applied?.amountBlood} Bag</th>
-                          <th>{applied?.donateDate}</th>
-                          <th>{applied?.donateTime}</th>
-                          <th>{applied?.donatePlace}</th>
-                          <th>
-                            <button className="btn btn-xs btn-secondary">
-                              {applied?.status}
-                            </button>
-                          </th>
-                        </>
-                      ))}
-                    </tr>
+                    {applicationBlood.map((applied, i) => (
+                      <tr key={i}>
+                        <th>{applied?.donarName}</th>
+                        <th>{applied?.bloodGroup}</th>
+                        <th>{applied?.amountBlood} Bag</th>
+                        <th>{applied?.donateDate}</th>
+                        <th>{applied?.donateTime}</th>
+                        <th>{applied?.donatePlace}</th>
+                        <th>
+                          <button className="btn btn-xs btn-secondary">
+                            {applied?.status}
+                          </button>
+                        </th>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

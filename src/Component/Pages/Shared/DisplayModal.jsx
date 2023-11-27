@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import moment from "moment";
 import { useState } from "react";
@@ -8,12 +9,12 @@ import Swal from "sweetalert2";
 import useUser from "../../../hook/UseUser";
 import Modal from "./Modal/Modal";
 const DisplayModal = ({ isOpen, setIsOpen, singleDonar }) => {
-  const [btnLoading,setbtnLoading] = useState(false)
-  const naviget = useNavigate()
+  const [btnLoading, setbtnLoading] = useState(false);
+  const naviget = useNavigate();
   const [user] = useUser();
   const handelSubmit = (e) => {
     e.preventDefault();
-    setbtnLoading(true)
+    setbtnLoading(true);
     const form = e.target;
     const patientProblem = form.patientProblem.value;
     const amountBlood = form.amountBlood.value;
@@ -38,68 +39,71 @@ const DisplayModal = ({ isOpen, setIsOpen, singleDonar }) => {
       bloodReq: "true",
     };
     const sendEmailInfo = {
-      রোগীরসমস্যা : patientProblem,
-      রক্তেরপরিমাণ : amountBlood  + '' + "bag" ,
-      রক্তদানেরতারিখ :  formattedDate,
-      রক্তদানেরসময় : donateTime,
-      রক্তদানেরস্থান : donatePlace ,
-      যোগাযোগ : contact,
-      bloodGroup: singleDonar?.bloodGroup ,
+      রোগীরসমস্যা: patientProblem,
+      রক্তেরপরিমাণ: amountBlood + "" + "bag",
+      রক্তদানেরতারিখ: formattedDate,
+      রক্তদানেরসময়: donateTime,
+      রক্তদানেরস্থান: donatePlace,
+      যোগাযোগ: contact,
+      bloodGroup: singleDonar?.bloodGroup,
       appliedPersonName: user?.displayName,
       appliedPersonEmail: user?.email,
       donarEmail: singleDonar?.email,
-    }
-    axios.post('https://tkgbds-server-side.up.railway.app/send-email-data',sendEmailInfo)
-      .then(res => {
-         if(res.data.accepted) {
+    };
+    axios
+      .post(
+        "https://tkgbds-server-side.up.railway.app/send-email-data",
+        sendEmailInfo
+      )
+      .then((res) => {
+        if (res.data.accepted) {
           axios
-          .post(
-            `https://tkgbds-server-side.up.railway.app/post-applicattionForBlood`,
-            applicationForBlood
-          )
-          .then((res) => {
-            if (res.data.insertedId) {
-              Swal.fire({
-                position: 'top-center',
-                icon: 'success',
-                title: 'Your application has been successfully please wait',
-                showConfirmButton: false,
-                timer: 1500
-              })
-              setbtnLoading(false)
-              form.reset();
-              setIsOpen(false);
-              naviget('/find-donar')
-            }
-          })
-          .catch((err) => console.log(err.message));
-         }
+            .post(
+              `https://tkgbds-server-side.up.railway.app/post-applicattionForBlood`,
+              applicationForBlood
+            )
+            .then((res) => {
+              if (res.data.insertedId) {
+                Swal.fire({
+                  position: "top-center",
+                  icon: "success",
+                  title: "Your application has been successfully please wait",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                setbtnLoading(false);
+                form.reset();
+                setIsOpen(false);
+                naviget("/find-donar");
+              }
+            })
+            .catch((err) => console.log(err.message));
+        }
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error(error.message);
       });
-    
   };
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <form onSubmit={handelSubmit} className="text-gray-900 space-y-2">
         <div className="flex flex-col gap-1">
-          <label htmlFor="patientProblem">রোগীর সমস্যা</label>
+          <label htmlFor="patientProblem">Patient Problem</label>
           <input
             type="text"
             name="patientProblem"
             id="patientProblem"
-            placeholder="রোগীর সমস্যা লিখুন"
+            placeholder="Enter Patient Problem "
             required
             className="input-field"
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="amountBlood"> রক্তের পরিমাণ</label>
+          <label htmlFor="amountBlood"> Amount Of Blood</label>
           <input
             type="number"
             name="amountBlood"
-            placeholder="রক্তের পরিমাণ লিখুন"
+            placeholder="Enter Amount Of Blood"
             id="amountBlood"
             required
             className="input-field"
@@ -108,45 +112,45 @@ const DisplayModal = ({ isOpen, setIsOpen, singleDonar }) => {
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="donateDate">রক্তদানের তারিখ</label>
+          <label htmlFor="donateDate">Date Of Blood Donation</label>
           <input
             type="date"
             name="donateDate"
-            placeholder="রক্তদানের তারিখ লিখুন"
+            placeholder="Enter Date Of Blood Donation"
             id="donateDate"
             className="input-field"
             required
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="donateTime">রক্তদানের সময়</label>
+          <label htmlFor="donateTime">Blood Donation Time</label>
           <input
             type="text"
             name="donateTime"
-            placeholder="রক্তদানের সময় লিখুন"
+            placeholder="Enter Blood Donation Time"
             id="donateTime"
             className="input-field"
             required
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="donatePlace"> রক্তদানের স্থান</label>
+          <label htmlFor="donatePlace"> Blood Donation Place</label>
           <input
             type="text"
             name="donatePlace"
             id="donatePlace"
-            placeholder="রক্তদানের স্থান লিখুন"
+            placeholder="Enter Blood Donation Place"
             required
             className="input-field"
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="contact">যোগাযোগ</label>
+          <label htmlFor="contact">Contact Number</label>
           <input
             type="number"
             name="contact"
             id="contact"
-            placeholder="যোগাযোগ নাম্বার লিখুন"
+            placeholder="Enter Your Contact Number"
             required
             className="input-field"
           />
@@ -158,18 +162,16 @@ const DisplayModal = ({ isOpen, setIsOpen, singleDonar }) => {
           >
             Cancel
           </div>
-          <button
-                type="submit"
-                className="newBTN"
-              >
-                {btnLoading ? (
-                  <div className="flex justify-center">
-                  <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>Loading...
-                </div>
-                ) : (
-                  "Continue"
-                )}
-              </button>
+          <button type="submit" className="newBTN">
+            {btnLoading ? (
+              <div className="flex justify-center">
+                <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>
+                Loading...
+              </div>
+            ) : (
+              "Continue"
+            )}
+          </button>
         </div>
       </form>
     </Modal>

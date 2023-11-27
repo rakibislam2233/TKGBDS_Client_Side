@@ -4,7 +4,6 @@ import moment from "moment/moment";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { FcGoogle } from "react-icons/fc";
 import { ImSpinner9 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../Provider/AuthProvider/AuthProvider";
@@ -12,7 +11,7 @@ import signupImage from "../../../../assets/SignUp/signup.webp";
 
 const DonarSignup = () => {
   const [btnLoading, setbtnLoading] = useState(false);
-  const { createNewUser, googleLogin } = useContext(UserContext);
+  const { createNewUser } = useContext(UserContext);
   const naviget = useNavigate();
   const {
     register,
@@ -23,15 +22,14 @@ const DonarSignup = () => {
   const onSubmit = (data) => {
     setbtnLoading(true);
     const userDate = data.date;
-    const formattedDate = moment(userDate).format("DD MMM YYYY");
+    console.log(userDate)
+    const  formattedDate = moment(userDate).format("DD MMM YYYY");
     //imagebb website photo Upload
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
 
-    const url = `https://api.imgbb.com/1/upload?key=${
-      import.meta.env.VITE_IMGBB_KEY
-    }`;
+    const url = `https://api.imgbb.com/1/upload?key=9d44eaf618447b8f95c8ff98785d99c3`;
     fetch(url, {
       method: "POST",
       body: formData,
@@ -67,7 +65,10 @@ const DonarSignup = () => {
               role: "donar",
             };
             axios
-              .put(`https://tkgbds-server-side.up.railway.app/donar/${email}`, userInfo)
+              .put(
+                `https://tkgbds-server-side.up.railway.app/donar/${email}`,
+                userInfo
+              )
               .then((res) => {
                 if (res.data) {
                   setbtnLoading(false);
@@ -77,42 +78,16 @@ const DonarSignup = () => {
               })
               .catch((err) => {
                 setbtnLoading(false);
-               toast.error(err.message)
+                toast.error(err.message);
               });
           })
           .catch((err) => {
             err.message;
-           toast.error(err.message)
-          });
-      });
-  };
- 
-  const LoginWithGoogle = () => {
-    googleLogin()
-      .then((result) => {
-        const user = result.user;
-        const userInfo = {
-          name: user.displayName,
-          email: user?.email,
-          imageUrl: user.photoURL,
-        };
-        console.log(userInfo)
-        axios.put(`https://tkgbds-server-side.up.railway.app/donar/${user?.email}`, userInfo)
-          .then((data) => {
-            if (data) {
-              setbtnLoading(false);
-              naviget('/become-a-donar');
-            }
-          })
-          .catch((err) => {
-            setbtnLoading(false);
             toast.error(err.message);
           });
-      })
-      .catch((err) => {
-        toast.error(err.message);
       });
   };
+
   return (
     <>
       <div
@@ -123,50 +98,64 @@ const DonarSignup = () => {
           backgroundRepeat: "no-repeat",
           backgroundBlendMode: "multiply",
         }}
-        className="w-full  flex justify-center items-center text-gray-700 p-5"
+        className="w-full  flex justify-center items-center text-gray-700 p-8"
       >
-        <div className="w-full max-w-[500px] p-6 rounded-2xl sm:p-10 bg-gray-100 text-gray-900">
+        <div className="w-full max-w-[600px] p-6 rounded-2xl sm:p-10 bg-gray-100 text-gray-900">
           <h2 className="text-2xl font-bold text-center py-2">
-            আপনার TKGBDS অ্যাকাউন্ট তৈরি করুন
+            Create Your TKBDS Account
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <div className="space-y-4">
               <div className="w-full">
-                <label htmlFor="email" className="block mb-2 text-sm">
+                <label htmlFor="email" className="block mb-2">
                   Name*
                 </label>
                 <input
                   type="text"
                   placeholder="Enter Your Name"
                   {...register("name", { required: true })}
-                  className="input-field"
+                  className={`w-full outline-none border ${
+                    errors.name
+                      ? "focus:border-rose-500"
+                      : "focus:border-green-500"
+                  }  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                 />
                 {errors.name && (
                   <span className="text-rose-500">Please enter your name</span>
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="email" className="block mb-2 text-sm">
+                <label htmlFor="email" className="block mb-2">
                   Email*
                 </label>
                 <input
                   type="email"
                   {...register("email", { required: true })}
                   placeholder="Enter Your Email"
-                  className="input-field"
+                  className={`w-full outline-none border ${
+                    errors.name
+                      ? "focus:border-rose-500"
+                      : "focus:border-green-500"
+                  }  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                 />
                 {errors.email && (
                   <span className="text-rose-500">Please enter your email</span>
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="email" className="block mb-2 text-sm">
+                <label htmlFor="email" className="block mb-2">
                   Password*
                 </label>
                 <input
                   type="password"
                   placeholder="********"
-                  className="input-field"
+                  className={`w-full outline-none border ${
+                    errors.password?.type === "required" ||
+                    errors.password?.type === "minLength" ||
+                    errors.password?.type === "maxLength"
+                      ? "focus:border-rose-500"
+                      : "focus:border-green-500"
+                  }  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                   {...register("password", {
                     required: true,
                     minLength: 6,
@@ -190,32 +179,32 @@ const DonarSignup = () => {
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                <label htmlFor="phoneNumber" className="block mb-2">
                   Phone Number*
                 </label>
                 <input
                   type="number"
                   placeholder="+880********"
-                  className="input-field"
+                  className={`w-full outline-none border ${errors.phoneNumber ?'focus:border-rose-500': 'focus:border-green-500'}  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                   {...register("phoneNumber", {
                     required: true,
                     minLength: 6,
                     maxLength: 15,
                   })}
                 />
-                {errors.phoneNumber?.type === "required" && (
+                {errors.phoneNumber&& (
                   <span className="text-rose-500">
                     Please enter your password
                   </span>
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                <label htmlFor="phoneNumber" className="block mb-2">
                   Blood Group*
                 </label>
                 <select
                   name="bloodGroup"
-                  className=" select input-field"
+                  className={`w-full outline-none border ${errors.bloodGroup? 'focus:border-rose-500': 'focus:border-green-500'}  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                   {...register("bloodGroup", {
                     required: true,
                   })}
@@ -231,20 +220,20 @@ const DonarSignup = () => {
                   <option value="B-">B-</option>
                 </select>
                 <br />
-                {errors.bloodGroup?.type === "required" && (
+                {errors.bloodGroup&& (
                   <span className="text-rose-500">
                     Please enter your Blood Group
                   </span>
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                <label htmlFor="phoneNumber" className="block mb-2">
                   District*
                 </label>
 
                 <select
                   name="district"
-                  className=" select input-field"
+                  className={`w-full outline-none border ${errors.district? 'focus:border-rose-500': 'focus:border-green-500'}  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                   {...register("district", {
                     required: true,
                   })}
@@ -264,82 +253,68 @@ const DonarSignup = () => {
                   <option value="Moulvibazar">Moulvibazar</option>
                 </select>
                 <br />
-                {errors.district?.type === "required" && (
+                {errors.district&& (
                   <span className="text-rose-500">
                     Please enter your District
                   </span>
                 )}
               </div>
               <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+                <label htmlFor="phoneNumber" className="block mb-2">
                   Area*
                 </label>
                 <input
                   type="text"
                   placeholder="Enter Your Area"
-                  className="input-field"
+                  className={`w-full outline-none border ${errors.area? 'focus:border-rose-500': 'focus:border-green-500'}  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
                   {...register("area", {
                     required: true,
                   })}
                 />
-                {errors.area?.type === "required" && (
+                {errors.area&& (
                   <span className="text-rose-500">Please enter your Area</span>
                 )}
               </div>
-              <div className="w-full">
-                <label htmlFor="phoneNumber" className="block mb-2 text-sm">
+              <div  className="w-full">
+                <label htmlFor="phoneNumber" className="block mb-2">
                   Last Donation Date
                 </label>
                 <input
                   type="date"
                   placeholder="Enter Your Area"
-                  className="input-field"
-                  {...register("date", {
-                    required: true,
-                  })}
+                  className={`w-full outline-none border ${errors.date? 'focus:border-rose-500': 'focus:border-green-500'}  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
+                  {...register("date")}
                 />
-                {errors.date?.type === "required" && (
-                  <span className="text-rose-500">
-                    Please enter Last Donation Date
-                  </span>
-                )}
               </div>
               <div className="w-full">
-                <label htmlFor="image" className="block mb-2 text-sm">
+                <label htmlFor="image" className="block mb-2">
                   Your Photo:
                 </label>
                 <input
                   type="file"
-                  className="input-field"
-                  {...register("image")}
+                  className={`w-full outline-none border ${errors.image? 'focus:border-rose-500': 'focus:border-green-500'}  py-2 px-3 bg-gray-200 text-gray-900 rounded `}
+                  {...register("image",{
+                    required:true
+                  })}
                 />
+                {errors.image&& (
+                  <span className="text-rose-500">Please enter your photo</span>
+                )}
               </div>
             </div>
             <div className="py-3">
               <button type="submit" className="w-full newBTN">
                 {btnLoading ? (
                   <div className="flex justify-center">
-                  <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>Loading...
-                </div>
+                    <ImSpinner9 className="w-6 h-6 animate-spin"></ImSpinner9>
+                    Loading...
+                  </div>
                 ) : (
                   "Create Account"
                 )}
               </button>
             </div>
           </form>
-          <div className="flex items-center py-2">
-            <div className="w-full h-[1px]  bg-gray-500"></div>
-            <div className="mx-3">Or</div>
-            <div className="w-full h-[1px] bg-gray-500"></div>
-          </div>
-          <div
-            onClick={LoginWithGoogle}
-            className="flex justify-center items-center space-x-2 border m-3 p-2  border-gray-500 cursor-pointer"
-          >
-            <FcGoogle size={32} />
-
-            <p>Continue with Google</p>
-          </div>
           <p className="px-6 text-center text-gray-400">
             Already have an account?
             <Link
