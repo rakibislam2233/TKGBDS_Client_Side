@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import useUser from "../../hook/UseUser";
 import DisplayModal from "../Pages/Shared/DisplayModal";
 import Loading from "../Pages/Shared/Loading";
+import { Helmet } from "react-helmet-async";
 const SingleDonar = () => {
   const [user] = useUser();
   const { id } = useParams();
@@ -35,6 +36,10 @@ const SingleDonar = () => {
       {singleDonarLoading ? (
         <Loading />
       ) : (
+        <>
+        <Helmet>
+        <title>Donar Details | TKGBDS </title>
+      </Helmet>
         <div className="w-full min-h-screen justify-center items-center flex my-8 p-5">
           <div className="w-full max-w-3xl mx-auto border rounded p-5 ">
             <img
@@ -85,6 +90,7 @@ const SingleDonar = () => {
             </div>
           </div>
         </div>
+        </>
       )}
     </>
   );

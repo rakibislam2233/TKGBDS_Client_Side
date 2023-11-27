@@ -21,6 +21,7 @@ import Contact from "../../Component/Contact/Contact";
 import PrivetRoute from "../PrivetRoute/PrivetRoute";
 import Errorpage from "../../Component/Pages/Shared/Errorpage";
 import MyFeedBack from "../../Layout/Dashboard/User/MyFeedBack";
+import AdminRoute from "../PrivetRoute/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -86,11 +87,19 @@ const router = createBrowserRouter([
       // Amdin routes start
       {
         path: "admin-profile",
-        element: <AdminProfile />,
+        element: (
+          <AdminRoute>
+            <AdminProfile />
+          </AdminRoute>
+        ),
       },
       {
         path: "manage-users",
-        element: <ManageUsers />,
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
       // Admin routes End
 
@@ -117,7 +126,7 @@ const router = createBrowserRouter([
       },
       {
         path: "feedback",
-        element: <MyFeedBack/>,
+        element: <MyFeedBack />,
       },
     ],
   },

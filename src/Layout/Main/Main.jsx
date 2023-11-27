@@ -3,7 +3,6 @@ import Navigation from "../../Component/Pages/Shared/Navigation/Navigation";
 import Footer from "../../Component/Pages/Shared/Footer/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "react-hot-toast";
-
 const Main = () => {
   return (
     <>
