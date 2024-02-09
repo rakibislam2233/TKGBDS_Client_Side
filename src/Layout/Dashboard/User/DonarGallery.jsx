@@ -28,7 +28,7 @@ const DonarGallery = () => {
         const galleryImage = { name, bloodGroup, imageUrl };
         axios
           .post(
-            `https://tkgbds-server-side.up.railway.app/post-gallery-image`,
+            `https://tkgbds-server-side-ttxc.vercel.app/post-gallery-image`,
             galleryImage
           )
           .then((res) => {

@@ -52,14 +52,14 @@ const DisplayModal = ({ isOpen, setIsOpen, singleDonar }) => {
     };
     axios
       .post(
-        "https://tkgbds-server-side.up.railway.app/send-email-data",
+        "https://tkgbds-server-side-ttxc.vercel.app/send-email-data",
         sendEmailInfo
       )
       .then((res) => {
         if (res.data.accepted) {
           axios
             .post(
-              `https://tkgbds-server-side.up.railway.app/post-applicattionForBlood`,
+              `https://tkgbds-server-side-ttxc.vercel.app/post-applicattionForBlood`,
               applicationForBlood
             )
             .then((res) => {

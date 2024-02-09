@@ -66,7 +66,7 @@ const DonarSignup = () => {
             };
             axios
               .put(
-                `https://tkgbds-server-side.up.railway.app/donar/${email}`,
+                `https://tkgbds-server-side-ttxc.vercel.app/donar/${email}`,
                 userInfo
               )
               .then((res) => {

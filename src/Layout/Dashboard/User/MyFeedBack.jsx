@@ -24,7 +24,7 @@ const MyFeedBack = () => {
     };
     axios
       .post(
-        `https://tkgbds-server-side.up.railway.app/feedback`,
+        `https://tkgbds-server-side-ttxc.vercel.app/feedback`,
         feedback
       )
       .then((res) => {

@@ -9,7 +9,7 @@ const useGetAllApplication = () => {
   } = useQuery({
     queryKey: ["applicationData"],
     queryFn: async () => {
-      const res = await axios(`https://tkgbds-server-side.up.railway.app/get-all-aplications`);
+      const res = await axios(`https://tkgbds-server-side-ttxc.vercel.app/get-all-aplications`);
       return res.data;
     },
   });

@@ -6,7 +6,7 @@ const useGetAllDonar = () => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get(`https://tkgbds-server-side.up.railway.app/get-all-donar`)
+      .get(`https://tkgbds-server-side-ttxc.vercel.app/get-all-donar`)
       .then((res) => {
         setAllDonar(res.data);
         setLoading(false);

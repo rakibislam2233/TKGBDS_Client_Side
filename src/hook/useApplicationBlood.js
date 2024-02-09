@@ -7,7 +7,7 @@ const useApplicationBlood = () => {
     queryKey: ["applicationBlood", user?.email],
     enabled: user?.email !== '',
     queryFn: async () => {
-      const res = await axios(`https://tkgbds-server-side.up.railway.app/application-blood/${user?.email}`);
+      const res = await axios(`https://tkgbds-server-side-ttxc.vercel.app/application-blood/${user?.email}`);
       return res.data;
 
     },

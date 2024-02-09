@@ -11,7 +11,7 @@ const Gallery = () => {
     queryKey: ["isAdmin",],
     queryFn: async () => {
       const res = await axios(
-        `https://tkgbds-server-side.up.railway.app/gallery-image`
+        `https://tkgbds-server-side-ttxc.vercel.app/gallery-image`
       );
       return res.data;
     },
@@ -60,7 +60,6 @@ const Gallery = () => {
       }
     ]
   };
-  console.log(images)
   return (
     <div className="w-full py-5 p-5">
       <div className="w-full">
@@ -71,11 +70,11 @@ const Gallery = () => {
         </div>
         <Slider className='py-5' {...settings}>
         {
-          images?.map((image,i) =><div key={i} className="relative cursor-pointer  rounded">
+          images?.map((image,i) =><div key={i} className="relative cursor-pointer p-2">
           <div className="content">
             <div className="content-overlay bg-gradient-to-r from-rose-600 to-pink-500 "></div>
             <img
-              className="w-full h-72  rounded-2xl"
+              className="w-full h-72"
               src={image?.imageUrl}
             />
             <div className="content-details  flex justify-center">

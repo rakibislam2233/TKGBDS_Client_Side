@@ -41,7 +41,7 @@ const NormalUserRegister = () => {
             });
             const userInfo = { name, email, imageUrl};
             axios
-              .put(`https://tkgbds-server-side.up.railway.app/donar/${email}`, userInfo)
+              .put(`https://tkgbds-server-side-ttxc.vercel.app/donar/${email}`, userInfo)
               .then((data) => {
                 if (data) {
                   setbtnLoading(false);

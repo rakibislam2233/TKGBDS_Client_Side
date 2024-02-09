@@ -24,7 +24,7 @@ const RequestedBlood = () => {
         updateLastBdDDate();
         axios
           .put(
-            `https://tkgbds-server-side.up.railway.app/request-blood-update/${id}`,
+            `https://tkgbds-server-side-ttxc.vercel.app/request-blood-update/${id}`,
             {
               status: "approved",
               bloodReq: "false",
@@ -51,7 +51,7 @@ const RequestedBlood = () => {
     const userDate = new Date();
     const formattedDate = moment(userDate).format("DD MMM YYYY");
     axios
-      .put(`https://tkgbds-server-side.up.railway.app/donar/${user?.email}`, {
+      .put(`https://tkgbds-server-side-ttxc.vercel.app/donar/${user?.email}`, {
         date: formattedDate,
       })
       .then((res) => {

@@ -19,7 +19,7 @@ const Donar = () => {
     handleClickPrev();
     if (query === undefined) {
       axios
-        .get(`https://tkgbds-server-side.up.railway.app/get-all-donar`)
+        .get(`https://tkgbds-server-side-ttxc.vercel.app/get-all-donar`)
         .then((res) => {
           setDonars(res.data);
           setdonarLoading(false);
@@ -29,7 +29,7 @@ const Donar = () => {
         });
     } else {
       axios
-        .post(`https://tkgbds-server-side.up.railway.app/get-filter`, query)
+        .post(`https://tkgbds-server-side-ttxc.vercel.app/get-filter`, query)
         .then((res) => {
           setdonarLoading(false);
           setDonars(res.data);
@@ -45,7 +45,7 @@ const Donar = () => {
     setdonarLoading(true);
     handleClickPrev();
     axios
-      .post(`https://tkgbds-server-side.up.railway.app/get-filter`, data)
+      .post(`https://tkgbds-server-side-ttxc.vercel.app/get-filter`, data)
       .then((res) => {
         setdonarLoading(false);
         setDonars(res.data);

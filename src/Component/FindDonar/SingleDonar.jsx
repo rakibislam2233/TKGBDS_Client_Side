@@ -16,7 +16,7 @@ const SingleDonar = () => {
   }, []);
   useEffect(() => {
     axios(
-      `https://tkgbds-server-side.up.railway.app/get-single-donar-byId/${id}`
+      `https://tkgbds-server-side-ttxc.vercel.app/get-single-donar-byId/${id}`
     )
       .then((res) => {
         setsingleDonar(res.data);

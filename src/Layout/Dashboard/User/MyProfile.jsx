@@ -36,7 +36,7 @@ const MyProfile = () => {
     };
     axios
       .put(
-        `https://tkgbds-server-side.up.railway.app/donar/${user?.email}`,
+        `https://tkgbds-server-side-ttxc.vercel.app/donar/${user?.email}`,
         updateInfo
       )
       .then((res) => {

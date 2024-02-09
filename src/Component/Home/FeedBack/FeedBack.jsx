@@ -10,7 +10,7 @@ const FeedBack = () => {
   const [feedbacks, setFeedBacks] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://tkgbds-server-side.up.railway.app/feedback`)
+      .get(`https://tkgbds-server-side-ttxc.vercel.app/feedback`)
       .then((res) => {
         setFeedBacks(res.data);
       });
@@ -62,11 +62,11 @@ const FeedBack = () => {
   return (
     <div className="w-full px-5  py-8">
       <h3 className="text-4xl font-semibold text-center text-rose-500 py-5">
-      Feedback
+        Feedback
       </h3>
       <Slider className="py-5" {...settings}>
         {feedbacks?.map((feedback, i) => (
-          <div key={i} className="w-full rounded border p-5 pb-10 space-y-3">
+          <div key={i} className="w-full pb-10 p-2 border space-y-3">
             <div className="flex gap-2">
               <img
                 className="w-16 h-16 rounded-full"
